@@ -1,0 +1,55 @@
+.footer-section {
+  background: linear-gradient(135deg, #e6f7ff 0%, #b3e5fc 100%);
+  color: #003366;
+  border-top: 2px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+  width: 1550px;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Headings */
+.footer-heading {
+  font-weight: 600;
+  color: #0056b3;
+  margin-bottom: 10px;
+  transition: color 0.3s ease;
+}
+
+.footer-heading:hover {
+  color: #007bff;
+}
+
+/* Paragraph text */
+.footer-text {
+  font-size: 0.95rem;
+  color: #024c74;
+}
+
+/* Divider line */
+.footer-divider {
+  width: 80%;
+  height: 1.5px;
+  background-color: rgba(0, 86, 179, 0.3);
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+/* Description */
+.footer-description {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+/* Footer bottom */
+.footer-bottom {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Hover glow effect */
+.footer-section:hover {
+  background: linear-gradient(135deg, #dff6ff 0%, #b3e5fc 100%);
+}

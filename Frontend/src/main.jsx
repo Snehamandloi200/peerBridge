@@ -16,6 +16,9 @@ import Login from './Login/Login';
 import Signup from './Signup/Signup';
 import AboutPage from './About/AboutPage';
 import HomePage from './Home/HomePage';
+import AddPost from './AddPost/AddPost';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -23,6 +26,7 @@ createRoot(document.getElementById('root')).render(
       <Navbar/>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path='/addpost' element={<AddPost/>}/>
         <Route path="/hackathon" element={<Hackathon />} />
         <Route path="/hackathon/:id" element={<HackathonShow />} />
         <Route path="/sell" element={<Sell />} />

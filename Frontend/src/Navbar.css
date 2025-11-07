@@ -1,0 +1,61 @@
+/* Navbar.css */
+
+.custom-navbar {
+  background: linear-gradient(90deg, #007bff, #17a2b8);
+  transition: all 0.3s ease;
+}
+
+.navbar-brand {
+  color: #fff !important;
+  letter-spacing: 1px;
+}
+
+.brand-highlight {
+  color: #ffea00;
+}
+
+.nav-link {
+  color: #e6f7ff !important;
+  font-weight: 500;
+  transition: color 0.3s, transform 0.2s;
+}
+
+.nav-link:hover {
+  color: #fff !important;
+  transform: scale(1.05);
+}
+
+.login-btn, .signup-btn, .logout-btn {
+  font-weight: 600;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #ffffff !important;
+  color: #007bff !important;
+}
+
+.signup-btn {
+  background-color: #ffea00;
+  color: #000;
+}
+
+.signup-btn:hover {
+  background-color: #fff176;
+  color: #000;
+}
+
+.logout-btn {
+  border-radius: 25px;
+}
+
+@media (max-width: 992px) {
+  .navbar-nav {
+    text-align: center;
+  }
+  .login-btn, .signup-btn {
+    width: 100%;
+    margin-top: 5px;
+  }
+}

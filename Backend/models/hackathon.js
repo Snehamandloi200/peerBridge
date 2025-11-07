@@ -15,6 +15,9 @@ const hackathonSchema=new Schema({
     project:{
       type:String,
     },
+    date:{
+        type:String,
+    },
     description: {
         type: String
     },

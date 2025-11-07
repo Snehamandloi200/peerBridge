@@ -1,37 +1,160 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useParams ,useNavigate} from "react-router-dom";
+import axios from "axios";
 
 function HackathonShow() {
+   const navigate = useNavigate();
+
   const { id } = useParams();
   const [hackathon, setHackathon] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/hackathon/${id}`)
-      .then(res => setHackathon(res.data))
-      .catch(err => console.log(err));
+    axios
+      .get(`http://localhost:8080/hackathon/${id}`)
+      .then((res) => setHackathon(res.data))
+      .catch((err) => console.log(err));
   }, [id]);
 
   if (!hackathon) {
-    return <p>Loading hackathon details...</p>;
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{
+          minHeight: "100vh",
+          background: "linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)",
+        }}
+      >
+        <p style={{ fontSize: "1.3rem", color: "#555" }}>Loading hackathon details...</p>
+      </div>
+    );
   }
 
   return (
-    <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" , marginLeft:"130px"}} >
-      <div className="card shadow-lg p-4 text-center" style={{ width: "500px" }}>
-        <h2 className='mb-3'>{hackathon.project}</h2>
-        <h5 className='mb-3'>Team Name: {hackathon.name}</h5>
-       <span
-                    className="badge bg-success mb-3"
-                    style={{ fontSize: "0.8rem" , width:"200px", marginLeft:"120px"}}
-                  >
-                    needed members {hackathon.neededmembers}
-                  </span>
-        <p>{hackathon.description}</p>
-        <div className="card-footer">
-                <small className="text-muted">Contact Number: </small>
-              </div>
+    <div
+      className="container-fluid d-flex justify-content-center align-items-center"
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)",
+        padding: "20px",
+      }}
+    >
+      <div
+        className="card text-center shadow-lg p-4"
+        style={{
+          width: "100%",
+          maxWidth: "500px",
+          borderRadius: "20px",
+          background: "rgba(255, 255, 255, 0.95)",
+          backdropFilter: "blur(8px)",
+          transition: "transform 0.4s ease, box-shadow 0.4s ease",
+          animation: "fadeIn 0.8s ease-in-out",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-8px)";
+          e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.2)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.1)";
+        }}
+      >
+        <h2
+          className="mb-3"
+          style={{
+            fontWeight: "700",
+            color: "#34495e",
+            textTransform: "capitalize",
+          }}
+        >
+           {hackathon.project}
+        </h2>
+
+        <h5
+          className="mb-3"
+          style={{
+            color: "#7f8c8d",
+            fontWeight: "600",
+          }}
+        >
+          👥 Team: {hackathon.name}
+        </h5>
+
+        <span
+          className="badge mb-4"
+          style={{
+            background: "linear-gradient(90deg, #27ae60, #2ecc71)",
+            fontSize: "0.9rem",
+            padding: "10px 20px",
+            borderRadius: "20px",
+            color: "white",
+            letterSpacing: "0.5px",
+          }}
+        >
+          Members Needed: {hackathon.neededmembers}
+        </span>
+
+        <p
+          style={{
+            color: "#555",
+            lineHeight: "1.6",
+            fontSize: "1rem",
+            marginBottom: "20px",
+          }}
+        >
+          {hackathon.description}
+        </p>
+
+        <div
+          className="card-footer border-0"
+          style={{
+            backgroundColor: "transparent",
+            fontSize: "0.95rem",
+            fontWeight: "500",
+            color: "#2c3e50",
+          }}
+        >
+          📞 <span style={{ color: "#16a085" }}>Contact Number:</span> <i>Available Soon</i>
+       <div>
+        <button
+            onClick={() => navigate(-1)}
+            className="btn mt-4 px-4 fw-semibold"
+            style={{
+              background: "linear-gradient(135deg, #42a5f5, #1e88e5)",
+              color: "white",
+              borderRadius: "12px",
+              fontSize: "1rem",
+              boxShadow: "0 6px 20px rgba(33, 150, 243, 0.3)",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
+            onMouseOver={(e) => {
+              e.target.style.transform = "scale(1.05)";
+              e.target.style.boxShadow = "0 10px 25px rgba(33, 150, 243, 0.5)";
+            }}
+            onMouseOut={(e) => {
+              e.target.style.transform = "scale(1)";
+              e.target.style.boxShadow = "0 6px 20px rgba(33, 150, 243, 0.3)";
+            }}
+          >
+            ⬅ Back
+          </button>
+          </div>
+        </div>
       </div>
+
+      <style>
+        {`
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+              transform: translateY(20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+        `}
+      </style>
     </div>
   );
 }

@@ -1,0 +1,55 @@
+/* Section background similar to Hero */
+.yourneed-section {
+  background: linear-gradient(135deg, #f2fbff 0%, #d9f2ff 50%, #bce0ff 100%);
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  color: #003366;
+}
+
+/* Title */
+.yourneed-title {
+  font-size: 2.5rem;
+  color: #003366;
+  animation: fadeInUp 1s ease-in-out;
+}
+
+.highlight {
+  color: #007bff;
+}
+
+/* Subtitle */
+.yourneed-subtext {
+  color: #024c74;
+  font-size: 1.1rem;
+  animation: fadeInUp 1.2s ease-in-out;
+}
+
+/* Cards */
+.yourneed-card {
+  background-color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  color: #024c74;
+}
+
+.yourneed-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.25);
+  background: linear-gradient(145deg, #ffffff, #e7f4ff);
+}
+
+/* Smooth entry animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

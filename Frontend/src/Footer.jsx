@@ -1,31 +1,42 @@
-import React from 'react';
+import React from "react";
+import "./Footer.css";
+
 function Footer() {
-    return ( 
-      <div style={{ backgroundColor: "rgb(240, 240, 240)" , width:"1600px" , textAlign:"center"}}>
-      <div className="container border-top mt-5 "
-        
-      >
-        <div className="row text-center">
-            
-            <div className="col-4">
-                <p>connect us</p>
-            </div>
-            <div className="col-4">
-                <p>Support</p>
-            </div>
-            <div className="col-4">
-               <p>Help</p> 
-            </div>
-            
+  return (
+    <footer className="footer-section py-5 mt-5">
+      <div className="container text-center">
+        <div className="row mb-4">
+          <div className="col-md-4 mb-3">
+            <h5 className="footer-heading">Connect with Us 🌐</h5>
+            <p className="footer-text">Stay updated and join our student community.</p>
+          </div>
+          <div className="col-md-4 mb-3">
+            <h5 className="footer-heading">Support</h5>
+            <p className="footer-text">We’re here to help you 24/7 with any queries.</p>
+          </div>
+          <div className="col-md-4 mb-3">
+            <h5 className="footer-heading">Help</h5>
+            <p className="footer-text">Need assistance? Reach out to our support team.</p>
+          </div>
         </div>
-        <div className=' row mt-5 fs-6 text-muted text-center'>
-            <p className='mb-5'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto tenetur fugiat repudiandae minima, recusandae magnam natus saepe. Inventore, animi? Veniam nobis quidem voluptatum quam, laudantium molestias dolorum labore consequuntur debitis.
-             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores, in dolor? Exercitationem magnam esse sequi nemo. Dolore, consequatur laudantium reiciendis, ad, dolores eligendi ex velit dolorem culpa id enim provident.
-            </p>
+
+        <div className="footer-divider my-4"></div>
+
+        <div className="footer-description text-muted">
+          <p>
+            PeerBridge is a collaborative student platform designed to make campus life
+            easier and more connected. Buy, sell, share, and learn — all in one place.
+          </p>
+        </div>
+
+        <div className="footer-bottom mt-4">
+          <p className="text-muted mb-0">
+            © {new Date().getFullYear()} <strong>PeerBridge</strong>. All rights reserved.
+          </p>
         </div>
       </div>
-      </div>
-     );
+    </footer>
+  );
 }
 
 export default Footer;

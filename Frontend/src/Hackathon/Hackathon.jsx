@@ -1,9 +1,7 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../Sell/Sell.css";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Hackathon() {
   const navigate = useNavigate();
@@ -20,7 +18,7 @@ function Hackathon() {
       })
       .then((res) => setAllHackathons(res.data))
       .catch((err) => {
-        console.error("Error fetching sells:", err);
+        console.error("Error fetching hackathons:", err);
         if (err.response && err.response.status === 401) {
           alert("Please login first!");
           navigate("/login");
@@ -29,47 +27,120 @@ function Hackathon() {
   }, []);
 
   return (
-    <div className="container my-4 mx-5  mt-5">
-      <div className="row p-5 justify-content-center text-center g-5 ">
-        {allHackathons.map((items, index) => {
-          return (
+    <div
+      className="container-fluid py-5"
+      style={{
+        background: "linear-gradient(to right, #f8fbff, #eef2f3)",
+        minHeight: "100vh",
+      }}
+    >
+      <h2
+        className="text-center mb-5 mt-5"
+        style={{
+          fontWeight: "700",
+          color: "#2c3e50",
+          letterSpacing: "1px",
+          textTransform: "uppercase",
+        }}
+      >
+         Ongoing Hackathons
+      </h2>
+
+      <div className="container">
+        <div className="row g-4 justify-content-center">
+          {allHackathons.map((items, index) => (
             <div
-              className="col-md-4  mb-5  col-sm-6 d-flex justify-content-center "
+              className="col-md-4 col-sm-6 d-flex justify-content-center"
               key={index}
+              style={{ animation: `fadeInUp 0.6s ease ${index * 0.1}s both` }}
             >
               <Link
                 to={`/hackathon/${items._id}`}
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  width: "100%",
-                }}
+                style={{ textDecoration: "none", color: "inherit", width: "100%" }}
               >
-                <div className="card h-100 shadow-sm  " id="box">
-                  <div className="card-body text-center">
+                <div
+                  className="card shadow-lg border-0 text-center h-100"
+                  style={{
+                    borderRadius: "20px",
+                    overflow: "hidden",
+                    background: "rgba(255,255,255,0.9)",
+                    transition: "transform 0.4s ease, box-shadow 0.4s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-10px)";
+                    e.currentTarget.style.boxShadow = "0 15px 35px rgba(0,0,0,0.2)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "0 5px 15px rgba(0,0,0,0.1)";
+                  }}
+                >
+                  <div
+                    className="card-body"
+                    style={{ padding: "25px", color: "#2c3e50" }}
+                  >
                     <div className="d-flex justify-content-between align-items-center mb-3">
-                      <h5 className="card-title text-start mb-0">
-                        Project Title: {items.project}
+                      <h5 className="card-title text-start mb-0 fw-bold">
+                         {items.project}
                       </h5>
                       <span
-                        className="badge bg-success"
-                        style={{ fontSize: "0.8rem" }}
+                        className="badge"
+                        style={{
+                          backgroundColor: "#27ae60",
+                          fontSize: "0.8rem",
+                          padding: "8px 10px",
+                        }}
                       >
-                        needed members {items.neededmembers}
+                        Members Needed: {items.neededmembers}
                       </span>
                     </div>
 
-                    <br></br>
-                    <h6 className="card-title"> Team name: {items.name}</h6>
-                    <br></br>
-                    <p className="card-text">{items.description}</p>
+                    <h6 className="card-subtitle mb-3 text-muted">
+                      👥 Team: {items.name}
+                    </h6>
+                    <p
+                      className="card-text"
+                      style={{
+                        fontSize: "0.95rem",
+                        lineHeight: "1.6",
+                        color: "#555",
+                      }}
+                    >
+                      {items.description}
+                    </p>
+                  </div>
+
+                  <div
+                    className="card-footer bg-light"
+                    style={{
+                      borderTop: "none",
+                      fontWeight: "500",
+                      fontSize: "0.9rem",
+                    }}
+                  >
+                    Click to view more ➜
                   </div>
                 </div>
               </Link>
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
+
+      <style>
+        {`
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translateY(20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+        `}
+      </style>
     </div>
   );
 }

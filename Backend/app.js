@@ -18,6 +18,9 @@ const bcrypt = require("bcryptjs");
 const sendMail = require("./Util/mailer");
 const generateToken = require("./Util/generateToken");
 const { isLoggedIn } = require("./middleware/isLoggedIn");
+const multer  = require('multer');
+const { cloudinary,storage}=require("./cloudconfig");
+const upload=multer({storage})
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -513,6 +516,108 @@ app.post("/login", async (req, res) => {
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.post("/addsell", upload.single("image"), async (req, res) => {
+  try {
+    // Access the file uploaded to Cloudinary
+    const imageUrl = req.file?.path; // multer-storage-cloudinary adds this
+    const { title, price, category, location, description ,_id } = req.body;
+
+    if (!imageUrl) {
+      return res.status(400).json({ message: "Image upload failed!" });
+    }
+
+    const newSell = new Sell({
+      title,
+      price,
+      category,
+      location,
+      description,
+      image: imageUrl,
+      owner: _id,
+     
+    });
+
+    await newSell.save();
+    res.status(201).json({ message: "Item added successfully", newSell });
+  } catch (error) {
+    console.error("Error adding sell item:", error);
+    res.status(500).json({ message: "Server error", error });
+  }
+});
+
+app.post("/addlostandfound", upload.single("image"), async (req, res) => {
+  try {
+    
+    const imageUrl = req.file?.path;
+    const { status, itemName, location, description } = req.body;
+
+    if (!imageUrl) {
+      return res.status(400).json({ message: "Image upload failed!" });
+    }
+
+    const newLostAndFound = new LostAndFound({
+     status,
+      itemName,
+      
+      location,
+      description,
+      image: imageUrl,
+    });
+
+    await newLostAndFound.save();
+    res.status(201).json({ message: "Item added successfully", newLostAndFound });
+  } catch (error) {
+    console.error("Error adding sell item:", error);
+    res.status(500).json({ message: "Server error", error });
+  }
+});
+
+
+app.post("/addhackathon", async (req, res) => {
+  try {
+    
+   
+    const { project, name, skills,neededmembers, description } = req.body;
+
+    
+
+    const newHackathon = new Hackathon({
+    project,
+    name,
+      description,
+      skills,
+      neededmembers,
+      description
+    });
+
+    await newHackathon.save();
+    res.status(201).json({ message: "Item added successfully", newHackathon });
+  } catch (error) {
+    console.error("Error adding sell item:", error);
+    res.status(500).json({ message: "Server error", error });
+  }
+});
+app.delete("/sell/:id", async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ message: "No token provided" });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const sell = await Sell.findById(req.params.id);
+    if (!sell) return res.status(404).json({ message: "Item not found" });
+
+    if (sell.userId.toString() !== decoded.id)
+      return res.status(403).json({ message: "Unauthorized action" });
+
+    await Sell.findByIdAndDelete(req.params.id);
+    res.json({ message: "Item deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to delete item" });
   }
 });
 

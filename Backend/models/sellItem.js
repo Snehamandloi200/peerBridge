@@ -19,7 +19,11 @@ const sellSchema=new Schema({
         type: String
     },
     image:String,
-    
+    owner:{
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
+
 });
 
 const Sell=mongoose.model("Sell",sellSchema);
