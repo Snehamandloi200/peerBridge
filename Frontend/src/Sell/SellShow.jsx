@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import {jwtDecode} from "jwt-decode";
+
 
 function SellShow() {
   const navigate = useNavigate();
@@ -15,19 +17,38 @@ function SellShow() {
       .catch((err) => console.log(err));
   }, [id]);
 
-  // ✅ Delete Function
-  const handleDelete = async () => {
-    if (window.confirm("Are you sure you want to delete this item?")) {
-      try {
-        await axios.delete(`http://localhost:8080/sell/${id}`);
-        alert("Item deleted successfully!");
-        navigate("/sell");
-      } catch (err) {
-        console.error(err);
-        alert("Failed to delete the item. Please try again.");
-      }
+  const [userId, setUserId] = useState(null);
+
+useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    const decoded = jwtDecode(token);
+    setUserId(decoded.id); 
+  }
+}, []);
+
+
+  
+ const handleDelete = async () => {
+  if (window.confirm("Are you sure you want to delete this item?")) {
+    try {
+      const token = localStorage.getItem("token");
+
+      await axios.delete(`http://localhost:8080/sell/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
+      });
+
+      alert("Item deleted successfully!");
+      navigate("/sell");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete the item. Please try again.");
     }
-  };
+  }
+};
+
 
   if (!sell) {
     return (
@@ -79,7 +100,7 @@ function SellShow() {
           </p>
 
           <p className="fw-semibold text-dark mb-2">
-            📞 Contact Number:{" "}
+             Contact Number:{" "}
             <span className="text-success">{sell.contact || "Not Available"}</span>
           </p>
 
@@ -98,7 +119,7 @@ function SellShow() {
             ₹ {sell.price}
           </div>
 
-          {/* ✅ Buttons Section */}
+          
           <div className="mt-4 d-flex justify-content-center gap-3 flex-wrap">
             <button
               onClick={() => navigate("/sell")}
@@ -120,56 +141,43 @@ function SellShow() {
                 e.target.style.boxShadow = "0 6px 20px rgba(33, 150, 243, 0.3)";
               }}
             >
-              ⬅ Back
+               Back
             </button>
 
-            {/* ✏ Edit Button */}
-            <button
-              onClick={() => navigate(`/edit-sell/${id}`)}
-              className="btn px-4 fw-semibold"
-              style={{
-                background: "linear-gradient(135deg, #ffb74d, #f57c00)",
-                color: "white",
-                borderRadius: "12px",
-                fontSize: "1rem",
-                boxShadow: "0 6px 20px rgba(255, 152, 0, 0.3)",
-                transition: "transform 0.3s ease, box-shadow 0.3s ease",
-              }}
-              onMouseOver={(e) => {
-                e.target.style.transform = "scale(1.05)";
-                e.target.style.boxShadow = "0 10px 25px rgba(255, 152, 0, 0.5)";
-              }}
-              onMouseOut={(e) => {
-                e.target.style.transform = "scale(1)";
-                e.target.style.boxShadow = "0 6px 20px rgba(255, 152, 0, 0.3)";
-              }}
-            >
-              ✏ Edit
-            </button>
+            {sell.owner === userId && (
+  <>
+    <button
+      onClick={() => navigate(`/selledit/${id}`)}
+      className="btn px-4 fw-semibold"
+      style={{
+        background: "linear-gradient(135deg, #ffb74d, #f57c00)",
+        color: "white",
+        borderRadius: "12px",
+        fontSize: "1rem",
+        boxShadow: "0 6px 20px rgba(255, 152, 0, 0.3)",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+      }}
+    >
+       Edit
+    </button>
 
-            {/* 🗑 Delete Button */}
-            <button
-              onClick={handleDelete}
-              className="btn px-4 fw-semibold"
-              style={{
-                background: "linear-gradient(135deg, #e57373, #d32f2f)",
-                color: "white",
-                borderRadius: "12px",
-                fontSize: "1rem",
-                boxShadow: "0 6px 20px rgba(244, 67, 54, 0.3)",
-                transition: "transform 0.3s ease, box-shadow 0.3s ease",
-              }}
-              onMouseOver={(e) => {
-                e.target.style.transform = "scale(1.05)";
-                e.target.style.boxShadow = "0 10px 25px rgba(244, 67, 54, 0.5)";
-              }}
-              onMouseOut={(e) => {
-                e.target.style.transform = "scale(1)";
-                e.target.style.boxShadow = "0 6px 20px rgba(244, 67, 54, 0.3)";
-              }}
-            >
-              🗑 Delete
-            </button>
+    <button
+      onClick={handleDelete}
+      className="btn px-4 fw-semibold"
+      style={{
+        background: "linear-gradient(135deg, #e57373, #d32f2f)",
+        color: "white",
+        borderRadius: "12px",
+        fontSize: "1rem",
+        boxShadow: "0 6px 20px rgba(244, 67, 54, 0.3)",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+      }}
+    >
+       Delete
+    </button>
+  </>
+)}
+
           </div>
         </div>
       </div>

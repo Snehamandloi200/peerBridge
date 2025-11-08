@@ -17,6 +17,10 @@ const lostAndFoundSchema=new Schema({
         type: String
     },
     image:String,
+      owner:{
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
 });
 
 const LostAndFound=mongoose.model("LostAndFound",lostAndFoundSchema);

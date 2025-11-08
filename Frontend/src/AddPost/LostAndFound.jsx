@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Lost_Found() {
+function LostAndFound() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     status: "",
@@ -259,4 +259,4 @@ function Lost_Found() {
   );
 }
 
-export default Lost_Found;
+export default LostAndFound;

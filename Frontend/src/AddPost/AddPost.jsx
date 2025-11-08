@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SellItem from "./SellItem";
-import Lost_Found from "./Lost&Found";
+import LostAndFound from "./LostAndFound";
 import FindTeam from "./FindTeam";
 
 function Addpost() {
@@ -83,7 +83,7 @@ function Addpost() {
         }}
       >
         {activeForm === "sell" && <SellItem />}
-        {activeForm === "lost" && <Lost_Found />}
+        {activeForm === "lost" && <LostAndFound />}
         {activeForm === "team" && <FindTeam />}
       </div>
     </div>

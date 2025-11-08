@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams ,useNavigate} from "react-router-dom";
 import axios from "axios";
+import {jwtDecode} from "jwt-decode";
 
 function HackathonShow() {
    const navigate = useNavigate();
@@ -15,6 +16,17 @@ function HackathonShow() {
       .catch((err) => console.log(err));
   }, [id]);
 
+  const [userId, setUserId] = useState(null);
+    
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const decoded = jwtDecode(token);
+        setUserId(decoded.id); 
+      }
+    }, []);
+  
+
   if (!hackathon) {
     return (
       <div
@@ -28,6 +40,34 @@ function HackathonShow() {
       </div>
     );
   }
+
+const handleDelete = async () => {
+  if (window.confirm("Are you sure you want to delete this item?")) {
+    try {
+      const token = localStorage.getItem("token");
+
+      await axios.delete(`http://localhost:8080/hackathon/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
+      });
+
+      alert("Item deleted successfully!");
+      navigate("/hackathon");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete the item. Please try again.");
+    }
+  }
+};
+
+
+  
+  // const handleEdit = () => {
+  //   navigate(`/hackathonedit/${id}`); 
+  // };
+
+
 
   return (
     <div
@@ -76,7 +116,7 @@ function HackathonShow() {
             fontWeight: "600",
           }}
         >
-          👥 Team: {hackathon.name}
+           Team: {hackathon.name}
         </h5>
 
         <span
@@ -113,7 +153,7 @@ function HackathonShow() {
             color: "#2c3e50",
           }}
         >
-          📞 <span style={{ color: "#16a085" }}>Contact Number:</span> <i>Available Soon</i>
+         <span style={{ color: "#16a085" }}>Contact Number:</span> <i>Available Soon</i>
        <div>
         <button
             onClick={() => navigate(-1)}
@@ -135,8 +175,43 @@ function HackathonShow() {
               e.target.style.boxShadow = "0 6px 20px rgba(33, 150, 243, 0.3)";
             }}
           >
-            ⬅ Back
+             Back
           </button>
+
+                   {hackathon.owner === userId && (
+  <>
+    <button
+      onClick={() => navigate(`/hackathonedit/${id}`)}
+      className="btn px-4 fw-semibold"
+      style={{
+        background: "linear-gradient(135deg, #ffb74d, #f57c00)",
+        color: "white",
+        borderRadius: "12px",
+        fontSize: "1rem",
+        boxShadow: "0 6px 20px rgba(255, 152, 0, 0.3)",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+      }}
+    >
+       Edit
+    </button>
+
+    <button
+      onClick={handleDelete}
+      className="btn px-4 fw-semibold"
+      style={{
+        background: "linear-gradient(135deg, #e57373, #d32f2f)",
+        color: "white",
+        borderRadius: "12px",
+        fontSize: "1rem",
+        boxShadow: "0 6px 20px rgba(244, 67, 54, 0.3)",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+      }}
+    >
+       Delete
+    </button>
+  </>
+)}
+
           </div>
         </div>
       </div>

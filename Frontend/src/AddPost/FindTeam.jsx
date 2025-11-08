@@ -23,17 +23,36 @@ function FindTeam() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
+
+  try {
+    const token = localStorage.getItem("token");
+
     const response = await axios.post(
       "http://localhost:8080/addhackathon",
       formData,
       {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, 
+        },
       }
     );
-    navigate("/sell");
+
     console.log("Form response:", response.data);
-  };
+    alert("Hackathon team added successfully!");
+    navigate("/hackathon"); 
+  } catch (error) {
+    console.error("Error submitting hackathon:", error);
+    if (error.response && error.response.status === 401) {
+      alert("You must login first to add a team!");
+      navigate("/login");
+    } else {
+      alert("Something went wrong while submitting the form.");
+    }
+  }
+};
+
 
   return (
     <div

@@ -43,8 +43,14 @@ function LostAndFound() {
           textShadow: "1px 1px 2px rgba(0,0,0,0.2)",
         }}
       >
-        🔍 Lost & Found Items
+         Lost & Found Items
       </h2>
+
+      <Link to="/addpost" className="text-decoration-none ">
+                  <button className="btn add-btn shadow-sm " style={{marginLeft:"1300px", marginBottom:"30px"}}>
+                    + Add New Post
+                  </button>
+                </Link>
 
       <div className="row justify-content-center g-5 px-5">
         {allLostAndFounds.map((item, index) => (
@@ -146,7 +152,7 @@ function LostAndFound() {
                     className="text-muted mb-3"
                     style={{ fontSize: "0.9rem" }}
                   >
-                    📍 {item.location || "Unknown location"}
+                     {item.location || "Unknown location"}
                   </h6>
 
                   <p

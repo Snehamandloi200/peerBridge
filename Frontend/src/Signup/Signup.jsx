@@ -80,7 +80,7 @@ function Signup() {
             letterSpacing: "1px",
           }}
         >
-          📝 Create Your Account
+           Create Your Account
         </h3>
 
         <form className="row g-3" onSubmit={handleSubmit}>

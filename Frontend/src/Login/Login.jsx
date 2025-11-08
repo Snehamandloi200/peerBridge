@@ -82,7 +82,7 @@ function Login() {
             letterSpacing: "1px",
           }}
         >
-          🔐 Welcome Back!
+           Welcome Back!
         </h3>
 
         <form onSubmit={handleSubmit}>

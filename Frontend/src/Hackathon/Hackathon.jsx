@@ -96,7 +96,7 @@ function Hackathon() {
                     </div>
 
                     <h6 className="card-subtitle mb-3 text-muted">
-                      👥 Team: {items.name}
+                       Team: {items.name}
                     </h6>
                     <p
                       className="card-text"

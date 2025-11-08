@@ -394,7 +394,7 @@ store.on("error", () => {
 // })
 
 app.get("/allSells", isLoggedIn, async (req, res) => {
-  const allSells = await Sell.find({});
+  const allSells = await Sell.find({}).populate("owner","_id name email");
   res.status(200).json(allSells);
 });
 
@@ -502,7 +502,7 @@ app.post("/login", async (req, res) => {
     const token = jwt.sign(
       { id: user._id, email: user.email },
       process.env.JWT_SECRET || "secret123",
-      { expiresIn: "1h" }
+      { expiresIn: "24h" }
     );
 
     res.status(200).json({
@@ -521,8 +521,15 @@ app.post("/login", async (req, res) => {
 
 app.post("/addsell", upload.single("image"), async (req, res) => {
   try {
-    // Access the file uploaded to Cloudinary
-    const imageUrl = req.file?.path; // multer-storage-cloudinary adds this
+
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ message: "No token provided" });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id; 
+
+    
+    const imageUrl = req.file?.path; 
     const { title, price, category, location, description ,_id } = req.body;
 
     if (!imageUrl) {
@@ -536,7 +543,7 @@ app.post("/addsell", upload.single("image"), async (req, res) => {
       location,
       description,
       image: imageUrl,
-      owner: _id,
+      owner: userId,
      
     });
 
@@ -551,6 +558,12 @@ app.post("/addsell", upload.single("image"), async (req, res) => {
 app.post("/addlostandfound", upload.single("image"), async (req, res) => {
   try {
     
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ message: "No token provided" });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+
     const imageUrl = req.file?.path;
     const { status, itemName, location, description } = req.body;
 
@@ -565,6 +578,7 @@ app.post("/addlostandfound", upload.single("image"), async (req, res) => {
       location,
       description,
       image: imageUrl,
+      owner:userId
     });
 
     await newLostAndFound.save();
@@ -579,7 +593,12 @@ app.post("/addlostandfound", upload.single("image"), async (req, res) => {
 app.post("/addhackathon", async (req, res) => {
   try {
     
-   
+   const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ message: "No token provided" });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+
     const { project, name, skills,neededmembers, description } = req.body;
 
     
@@ -590,7 +609,8 @@ app.post("/addhackathon", async (req, res) => {
       description,
       skills,
       neededmembers,
-      description
+      description,
+      owner:userId,
     });
 
     await newHackathon.save();
@@ -610,7 +630,7 @@ app.delete("/sell/:id", async (req, res) => {
     const sell = await Sell.findById(req.params.id);
     if (!sell) return res.status(404).json({ message: "Item not found" });
 
-    if (sell.userId.toString() !== decoded.id)
+    if (sell.owner.toString() !== decoded.id)
       return res.status(403).json({ message: "Unauthorized action" });
 
     await Sell.findByIdAndDelete(req.params.id);
@@ -620,6 +640,131 @@ app.delete("/sell/:id", async (req, res) => {
     res.status(500).json({ message: "Failed to delete item" });
   }
 });
+
+app.put("/selledit/:id",upload.single("image"),async(req,res)=>{
+   
+   try {
+    const { id } = req.params;
+    const sell = await Sell.findById(id);
+
+    if (!sell) {
+      return res.status(404).json({ error: "Item not found" });
+    }
+
+    const imageUrl = req.file ? req.file.path : sell.image; 
+    sell.title = req.body.title || sell.title;
+    sell.price = req.body.price || sell.price;
+    sell.category = req.body.category || sell.category;
+    sell.location = req.body.location || sell.location;
+    sell.description = req.body.description || sell.description;
+    sell.image = imageUrl;
+
+    await sell.save();
+
+    res.json({ message: "Item updated successfully", sell });
+  } catch (error) {
+    console.error("Error updating item:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+
+app.delete("/lostandfound/:id", async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ message: "No token provided" });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const lostandfound = await LostAndFound.findById(req.params.id);
+    if (!lostandfound) return res.status(404).json({ message: "Item not found" });
+
+    if (lostandfound.owner.toString() !== decoded.id)
+      return res.status(403).json({ message: "Unauthorized action" });
+
+    await LostAndFound.findByIdAndDelete(req.params.id);
+    res.json({ message: "Item deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to delete item" });
+  }
+});
+
+
+app.put("/lostandfoundedit/:id",upload.single("image"),async(req,res)=>{
+   
+   try {
+    const { id } = req.params;
+    const lostandfound = await LostAndFound.findById(id);
+
+    if (!lostandfound) {
+      return res.status(404).json({ error: "Item not found" });
+    }
+
+    const imageUrl = req.file ? req.file.path : lostandfound.image; 
+    lostandfound.title = req.body.title || lostandfound.title;
+    lostandfound.price = req.body.price || lostandfound.price;
+    lostandfound.category = req.body.category || lostandfound.category;
+    lostandfound.location = req.body.location || lostandfound.location;
+    lostandfound.description = req.body.description || lostandfound.description;
+    lostandfound.image = imageUrl;
+
+    await lostandfound.save();
+
+    res.json({ message: "Item updated successfully", lostandfound });
+  } catch (error) {
+    console.error("Error updating item:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+
+app.delete("/hackathon/:id", async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ message: "No token provided" });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const hackathon = await Hackathon.findById(req.params.id);
+    if (!hackathon) return res.status(404).json({ message: "Item not found" });
+
+    if (hackathon.owner.toString() !== decoded.id)
+      return res.status(403).json({ message: "Unauthorized action" });
+
+    await Hackathon.findByIdAndDelete(req.params.id);
+    res.json({ message: "Item deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to delete item" });
+  }
+});
+
+
+app.put("/hackathonedit/:id",async(req,res)=>{
+   
+   try {
+    const { id } = req.params;
+    const hackathon = await Hackathon.findById(id);
+
+    if (!hackathon) {
+      return res.status(404).json({ error: "Item not found" });
+    } 
+    hackathon.name = req.body.name || hackathon.name;
+    hackathon.project = req.body.project || hackathon.project;
+    hackathon.neededmembers = req.body.neededmembers || hackathon.neededmembers;
+   hackathon.skills = req.body.skills || hackathon.skills;
+    hackathon.description = req.body.description || hackathon.description;
+   
+    await hackathon.save();
+
+    res.json({ message: "Item updated successfully", hackathon });
+  } catch (error) {
+    console.error("Error updating item:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 
 app.listen(8080, () => {
   console.log("Listening at port 8080");

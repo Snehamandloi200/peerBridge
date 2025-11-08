@@ -18,6 +18,9 @@ import AboutPage from './About/AboutPage';
 import HomePage from './Home/HomePage';
 import AddPost from './AddPost/AddPost';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import SellEdit from './Sell/SellEdit';
+import LostAndFoundEdit from './LostAndFound/LostFoundEdit';
+import HackathonEdit from './Hackathon/HackathonEdit';
 
 
 createRoot(document.getElementById('root')).render(
@@ -29,10 +32,13 @@ createRoot(document.getElementById('root')).render(
         <Route path='/addpost' element={<AddPost/>}/>
         <Route path="/hackathon" element={<Hackathon />} />
         <Route path="/hackathon/:id" element={<HackathonShow />} />
+        <Route path='/hackathonedit/:id' element={<HackathonEdit/>} />
         <Route path="/sell" element={<Sell />} />
         <Route path="/sell/:id" element={<SellShow />} />
+        <Route path='/selledit/:id' element={<SellEdit />} />
         <Route path="/lostandfound" element={<LostAndFound />} />
         <Route path="/lostandfound/:id" element={<LostAndFoundShow />} />
+        <Route path='/lostandfoundedit/:id' element={<LostAndFoundEdit/>} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<AboutPage />} />
