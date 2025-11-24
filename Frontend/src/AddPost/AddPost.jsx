@@ -7,15 +7,17 @@ function Addpost() {
   const [activeForm, setActiveForm] = useState("sell");
 
   return (
+  
     <div
-      className="container d-flex flex-column align-items-center"
+      className="addpost-wrapper d-flex flex-column align-items-center w-100" 
       style={{
         minHeight: "100vh",
         paddingTop: "100px",
+        // This background now correctly stretches full width because of 'w-100'
         background: "linear-gradient(135deg, #e0f7fa, #e3f2fd)",
       }}
     >
-      {/* Navigation Tabs */}
+     
       <ul
         className="nav justify-content-center shadow-lg"
         style={{
@@ -74,7 +76,8 @@ function Addpost() {
       <div
         className="form-container w-100"
         style={{
-          maxWidth: "800px",
+          // Optional: Increase max-width for better use of space on big monitors
+          maxWidth: "1000px", 
           padding: "30px",
           borderRadius: "20px",
           background: "#ffffff",

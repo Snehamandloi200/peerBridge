@@ -1,61 +1,108 @@
 /* Navbar.css */
 
+/* Light modern theme */
 .custom-navbar {
-  background: linear-gradient(90deg, #007bff, #17a2b8);
+  background-color: #ffffff;
+  border-bottom: 1px solid #e6e6e6;
+  padding: 0.8rem 1.2rem;
   transition: all 0.3s ease;
+  z-index: 1000;
 }
 
+/* Brand name */
 .navbar-brand {
-  color: #fff !important;
-  letter-spacing: 1px;
+  color: #007bff !important;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 .brand-highlight {
-  color: #ffea00;
+  color: #ff6600;
 }
 
+/* Nav links */
 .nav-link {
-  color: #e6f7ff !important;
+  color: #333 !important;
   font-weight: 500;
-  transition: color 0.3s, transform 0.2s;
+  margin: 0 8px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-size: 1rem;
 }
 
 .nav-link:hover {
-  color: #fff !important;
-  transform: scale(1.05);
-}
-
-.login-btn, .signup-btn, .logout-btn {
-  font-weight: 600;
-  border-radius: 25px;
-  transition: all 0.3s ease;
-}
-
-.login-btn:hover {
-  background-color: #ffffff !important;
   color: #007bff !important;
+  transform: translateY(-2px);
 }
 
-.signup-btn {
-  background-color: #ffea00;
-  color: #000;
-}
-
-.signup-btn:hover {
-  background-color: #fff176;
-  color: #000;
-}
-
+/* Buttons */
+.login-btn,
+.signup-btn,
 .logout-btn {
   border-radius: 25px;
+  padding: 6px 16px;
+  font-weight: 500;
+  transition: 0.3s ease;
 }
 
+/* Login button */
+.login-btn:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Signup button */
+.signup-btn {
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+}
+.signup-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Logout button */
+.logout-btn {
+  border-radius: 25px;
+  padding: 6px 18px;
+  font-weight: 500;
+  background-color: #ff4b5c;
+  border: none;
+}
+.logout-btn:hover {
+  background-color: #ff6b81;
+}
+
+/* Responsive Design */
 @media (max-width: 992px) {
-  .navbar-nav {
-    text-align: center;
+  .navbar-collapse {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
   }
-  .login-btn, .signup-btn {
+
+  .nav-link {
+    text-align: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eaeaea;
+  }
+
+  .nav-link:last-child {
+    border-bottom: none;
+  }
+
+  .login-btn,
+  .signup-btn,
+  .logout-btn {
     width: 100%;
-    margin-top: 5px;
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-brand {
+    font-size: 1.6rem;
   }
 }

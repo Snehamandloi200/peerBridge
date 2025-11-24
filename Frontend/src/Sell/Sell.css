@@ -1,89 +1,121 @@
-/* Container and layout */
-.container {
-  max-width: 1300px;
-  margin: auto;
+/* 🌈 Wrapper for full background coverage */
+.sell-wrapper {
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: linear-gradient(135deg, #e8f0ff 0%, #f6f9ff 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-#box {
-  transition: all 0.4s ease-in-out;
-  border-radius: 15px;
-  overflow: hidden;
-  background: #fff;
-  border: none;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+/* 🧭 Section inside wrapper */
+.sell-section {
+  width: 100%;
+  padding-top: 80px;
+  padding-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Image styling */
-#box img {
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  transition: transform 0.4s ease, filter 0.3s ease;
+/* 📦 Container to hold content */
+.sell-container {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-/* Hover effect for card */
-#box:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-}
-
-#box:hover img {
-  transform: scale(1.05);
-  filter: brightness(1.1);
-}
-
-/* Card body */
-.card-body {
-  padding: 1.5rem;
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-}
-
-.card-title {
-  font-size: 1.3rem;
+/* 🏷️ Heading */
+.sell-section h1 {
+  font-size: 2.5rem;
   font-weight: 700;
-  color: #212529;
-  margin-bottom: 10px;
+  color: #0d47a1;
 }
 
-.card-text {
-  font-size: 0.95rem;
+.sell-section .highlight {
+  color: #1565c0;
+}
+
+.sell-section p {
   color: #555;
-  line-height: 1.5;
+  font-size: 1.1rem;
 }
 
-/* Card footer */
-.card-footer {
-  background: #f8f9fa;
-  border-top: none;
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: #198754;
+/* 🧩 Cards Layout */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 40px;
 }
 
-/* Add Post button */
-.btn-success {
-  background: linear-gradient(135deg, #28a745, #218838);
-  border: none;
-  border-radius: 50px;
-  font-weight: 600;
-  transition: all 0.3s ease-in-out;
+/* 🎴 Card Styling */
+.sell-card {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #ffffff, #f4f7fc);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+  margin: 0 auto;
 }
 
-.btn-success:hover {
-  background: linear-gradient(135deg, #218838, #1e7e34);
-  transform: scale(1.05);
+.sell-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.15);
 }
 
-/* Responsive grid */
+/* 🖼️ Card image */
+.sell-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+/* ✨ Button pulse effect */
+.pulse {
+  animation: pulseAnim 2s infinite;
+}
+
+@keyframes pulseAnim {
+  0% {
+    box-shadow: 0 0 0 0 rgba(108, 117, 125, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(108, 117, 125, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(108, 117, 125, 0);
+  }
+}
+
+/* 🌟 Page fade-in */
+@keyframes fadeInPage {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@media (max-width: 992px) {
+  .sell-card {
+    max-width: 800px;
+  }
+}
+
 @media (max-width: 768px) {
-  #box {
-    width: 90%;
-  }
-
-  .card-title {
-    font-size: 1.1rem;
-  }
-
-  .card-text {
-    font-size: 0.9rem;
+  .sell-card {
+    max-width: 100%;
   }
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./signup.css"; // <-- NEW CSS FILE
 
 function Signup() {
   const navigate = useNavigate();
@@ -17,25 +18,20 @@ function Signup() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const response = await axios.post("http://localhost:8080/signup", formData, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    console.log(response.data);
+    const response = await axios.post(
+      "http://localhost:8080/signup",
+      formData,
+      { headers: { "Content-Type": "application/json" } }
+    );
 
     if (response.data.token) {
       localStorage.setItem("token", response.data.token);
-      alert(" Signup Successful!");
+      alert("Signup Successful!");
       navigate("/sell");
     } else {
       alert("Signup failed.");
@@ -43,186 +39,159 @@ function Signup() {
   };
 
   return (
-    <div
-      className="d-flex justify-content-center align-items-center mt-5"
-      style={{
-        minHeight: "100vh",
-        background: "linear-gradient(135deg, #e3f2fd, #fce4ec, #fff3e0)",
-        animation: "fadeIn 1s ease-in-out",
-        padding: "20px",
-      }}
-    >
-      <div
-        className="card border-0 shadow-lg p-4 mt-5"
+     <div className="signup-wrapper d-flex justify-content-center align-items-start">
+
+      <div 
+        className="card signup-card shadow-lg p-4"
         style={{
           width: "100%",
-          maxWidth: "700px",
+          maxWidth: "520px",
           borderRadius: "20px",
-          background: "rgba(255, 255, 255, 0.92)",
-          backdropFilter: "blur(12px)",
-          transition: "transform 0.4s ease, box-shadow 0.4s ease",
-          animation: "slideUp 0.8s ease",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = "translateY(-5px)";
-          e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.15)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = "0 10px 25px rgba(0,0,0,0.1)";
+        
+          animation: "slideUp 0.8s ease, fadeIn 1s ease",
         }}
       >
-        <h3
-          className="text-center mb-4"
-          style={{
-            fontWeight: "700",
-            color: "#1565c0",
-            letterSpacing: "1px",
-          }}
-        >
-           Create Your Account
-        </h3>
+        <h2 className="text-center mb-3 fw-bold" style={{ color: "#1565c0" }}>
+         Create Your Account
+        </h2>
 
-        <form className="row g-3" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
+
           {/* Full Name */}
-          <div className="col-md-6">
-            <label className="form-label fw-semibold text-secondary">Full Name</label>
+          <div className="mb-3">
+            <label className="form-label">Full Name</label>
             <input
               type="text"
-              className="form-control shadow-sm"
+              className="form-control"
               placeholder="Enter your full name"
               name="username"
               value={formData.username}
               onChange={handleChange}
               required
-              style={{ borderRadius: "10px", padding: "10px" }}
+               style={{
+                borderRadius: "12px",
+              }}
             />
           </div>
 
           {/* Enrollment */}
-          <div className="col-md-6">
-            <label className="form-label fw-semibold text-secondary">Enrollment Number</label>
+          <div className="mb-3">
+            <label className="form-label">Enrollment Number</label>
             <input
               type="text"
-              className="form-control shadow-sm"
+              className="form-control"
               placeholder="0805CSXXXXX"
               name="enroll"
               value={formData.enroll}
               onChange={handleChange}
-              required
               minLength={12}
               maxLength={12}
-              style={{ borderRadius: "10px", padding: "10px" }}
+              required
+               style={{
+                borderRadius: "12px",
+              }}
             />
           </div>
 
           {/* Email */}
-          <div className="col-md-6">
-            <label className="form-label fw-semibold text-secondary">Email</label>
+          <div className="mb-3">
+            <label className="form-label">Email</label>
             <input
               type="email"
-              className="form-control shadow-sm"
+              className="form-control"
               placeholder="example@gmail.com"
               name="email"
               value={formData.email}
               onChange={handleChange}
               required
-              style={{ borderRadius: "10px", padding: "10px" }}
+               style={{
+                borderRadius: "12px",
+              }}
             />
           </div>
 
           {/* Password */}
-          <div className="col-md-6">
-            <label className="form-label fw-semibold text-secondary">Password</label>
+          <div className="mb-3">
+            <label className="form-label">Password</label>
             <input
               type="password"
-              className="form-control shadow-sm"
-              name="password"
+              className="form-control"
               placeholder="Enter password"
+              name="password"
               value={formData.password}
               onChange={handleChange}
               minLength={6}
               required
-              style={{ borderRadius: "10px", padding: "10px" }}
+               style={{
+                borderRadius: "12px",
+              }}
             />
           </div>
 
           {/* LinkedIn */}
-          <div className="col-12">
-            <label className="form-label fw-semibold text-secondary">LinkedIn Profile</label>
+          <div className="mb-3">
+            <label className="form-label">LinkedIn Profile</label>
             <input
               type="url"
-              className="form-control shadow-sm"
+              className="form-control"
+              placeholder="https://linkedin.com/in/yourname"
               name="profileLink"
-              placeholder="https://www.linkedin.com/in/yourname"
               value={formData.profileLink}
               onChange={handleChange}
-              style={{ borderRadius: "10px", padding: "10px" }}
+               style={{
+                borderRadius: "12px",
+              }}
             />
           </div>
 
-          {/* Residence */}
-          <div className="col-12 mt-2">
-            <label className="form-label fw-semibold text-secondary">Residence Type</label>
-            <div className="d-flex gap-4">
-              <div className="form-check">
-                <input className="form-check-input" type="radio" name="residence" id="day" />
-                <label className="form-check-label" htmlFor="day">
-                  Day Scholar
-                </label>
-              </div>
-              <div className="form-check">
-                <input className="form-check-input" type="radio" name="residence" id="hostel" />
-                <label className="form-check-label" htmlFor="hostel">
-                  Hosteller
-                </label>
-              </div>
-            </div>
-          </div>
-
           {/* Address */}
-          <div className="col-12">
-            <label className="form-label fw-semibold text-secondary">Address</label>
+          <div className="mb-3">
+            <label className="form-label">Address</label>
             <input
               type="text"
-              className="form-control shadow-sm"
-              name="address"
+              className="form-control"
               placeholder="Enter your address"
+              name="address"
               value={formData.address}
               onChange={handleChange}
-              style={{ borderRadius: "10px", padding: "10px" }}
+               style={{
+                borderRadius: "12px",
+              }}
             />
           </div>
 
           {/* College Name */}
-          <div className="col-12">
-            <label className="form-label fw-semibold text-secondary">College Name</label>
+          <div className="mb-3">
+            <label className="form-label">College Name</label>
             <input
-              className="form-control shadow-sm"
               type="text"
+              className="form-control bg-light"
               value="Jawaharlal Institute of Technology, Borawan"
               readOnly
-              disabled
-              style={{ borderRadius: "10px", padding: "10px", backgroundColor: "#f5f5f5" }}
+               style={{
+                borderRadius: "12px",
+              }}
             />
           </div>
 
           {/* City */}
-          <div className="col-md-6">
-            <label className="form-label fw-semibold text-secondary">City</label>
-            <input type="text" className="form-control shadow-sm" id="inputCity" style={{ borderRadius: "10px", padding: "10px" }} />
+          <div className="mb-3">
+            <label className="form-label">City</label>
+            <input type="text" className="form-control" />
           </div>
 
           {/* Year */}
-          <div className="col-md-4">
-            <label className="form-label fw-semibold text-secondary">Year</label>
+          <div className="mb-3">
+            <label className="form-label">Year</label>
             <select
-              className="form-select shadow-sm"
+              className="form-select"
               name="year"
               value={formData.year}
               onChange={handleChange}
+               style={{
+                borderRadius: "12px",
+              }}
               required
-              style={{ borderRadius: "10px", padding: "10px" }}
             >
               <option value="">Select year</option>
               <option>1st Year</option>
@@ -233,76 +202,42 @@ function Signup() {
           </div>
 
           {/* Semester */}
-          <div className="col-md-2">
-            <label className="form-label fw-semibold text-secondary">Semester</label>
+          <div className="mb-3">
+            <label className="form-label">Sem</label>
             <input
               type="text"
-              className="form-control shadow-sm"
+              className="form-control"
               name="semester"
               value={formData.semester}
               onChange={handleChange}
-              style={{ borderRadius: "10px", padding: "10px" }}
+               style={{
+                borderRadius: "12px",
+              }}
             />
           </div>
 
           {/* Terms */}
-          <div className="col-12 mt-2">
+          <div className="mb-3">
             <div className="form-check">
-              <input className="form-check-input" type="checkbox" id="gridCheck" />
-              <label className="form-check-label" htmlFor="gridCheck">
-                Agree to terms and conditions
+              <input className="form-check-input" type="checkbox" required />
+              <label className="form-check-label">
+                I agree to terms and conditions
               </label>
             </div>
           </div>
 
           {/* Button */}
           <div className="col-12">
-            <button
-              type="submit"
-              className="btn w-100 fw-semibold mt-3"
-              style={{
-                background: "linear-gradient(135deg, #42a5f5, #64b5f6)",
-                color: "white",
-                borderRadius: "12px",
-                fontSize: "1.1rem",
-                padding: "12px",
-                boxShadow: "0 8px 25px rgba(21,101,192,0.3)",
-                transition: "all 0.3s ease",
-              }}
-              onMouseOver={(e) => {
-                e.target.style.boxShadow = "0 10px 35px rgba(21,101,192,0.5)";
-                e.target.style.transform = "scale(1.05)";
-              }}
-              onMouseOut={(e) => {
-                e.target.style.boxShadow = "0 8px 25px rgba(21,101,192,0.3)";
-                e.target.style.transform = "scale(1)";
-              }}
-            >
-               Sign Up
-            </button>
+            <button type="submit" className="btn w-100 fw-semibold btn-lg mt-2"
+            style={{
+              background: "linear-gradient(135deg, #42a5f5, #64b5f6)",
+              color: "white",
+              borderRadius: "12px",
+              boxShadow: "0 6px 20px rgba(66,165,245,0.4)",
+            }}>Sign Up</button>
           </div>
         </form>
       </div>
-
-      <style>
-        {`
-          @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-          }
-
-          @keyframes slideUp {
-            from {
-              transform: translateY(30px);
-              opacity: 0;
-            }
-            to {
-              transform: translateY(0);
-              opacity: 1;
-            }
-          }
-        `}
-      </style>
     </div>
   );
 }

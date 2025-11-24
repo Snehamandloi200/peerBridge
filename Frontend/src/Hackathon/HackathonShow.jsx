@@ -33,6 +33,7 @@ function HackathonShow() {
         className="d-flex justify-content-center align-items-center"
         style={{
           minHeight: "100vh",
+       
           background: "linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)",
         }}
       >
@@ -74,8 +75,10 @@ const handleDelete = async () => {
       className="container-fluid d-flex justify-content-center align-items-center"
       style={{
         minHeight: "100vh",
+           width:"1550px",
         background: "linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)",
         padding: "20px",
+
       }}
     >
       <div

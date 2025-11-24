@@ -71,7 +71,8 @@ function LostAndFoundShow() {
       className="d-flex justify-content-center align-items-center"
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #f3f9ff, #cfe2ff)",
+        width:"1550px",
+       background: "linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)",
         padding: "40px",
       }}
     >

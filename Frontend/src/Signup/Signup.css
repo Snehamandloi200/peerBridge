@@ -1,0 +1,59 @@
+/* Full Page Background */
+.signup-wrapper {
+  min-height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-top: 120px !important;   /* ✔ Proper space from top */
+  padding-bottom: 80px !important; /* ✔ Prevents overlap with footer */
+}
+
+/* Card Styling */
+.signup-card {
+  border-radius: 18px !important;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 25px !important;
+  max-width: 540px;
+
+  /* ✔ Prevent overlap – card gets natural height */
+  min-height: 100px;
+
+  animation: slideUp 0.7s ease, fadeIn 1s ease;
+}
+
+/* Reduce spacing between input fields */
+.signup-card .form-label {
+  margin-bottom: 4px !important;
+}
+
+.signup-card .form-control,
+.signup-card .form-select {
+  padding: 8px 12px !important;
+  border-radius: 10px !important;
+}
+
+/* Button */
+.btn {
+  padding: 10px !important;
+  border-radius: 12px !important;
+  font-size: 1rem !important;
+}
+
+/* Animation Effects */
+@keyframes slideUp {
+  from {
+    transform: translateY(25px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

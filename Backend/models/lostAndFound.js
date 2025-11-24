@@ -16,6 +16,9 @@ const lostAndFoundSchema=new Schema({
     description:{
         type: String
     },
+    contact:{
+        type : Number,
+    },
     image:String,
       owner:{
         type: Schema.Types.ObjectId,

@@ -14,6 +14,9 @@ function FindTeam() {
     date: "",
   });
 
+  // 🚀 NEW: Disable submit button after first click
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -23,36 +26,41 @@ function FindTeam() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const token = localStorage.getItem("token");
+    if (loading) return; // ⛔ Prevent double submit
+    setLoading(true);
 
-    const response = await axios.post(
-      "http://localhost:8080/addhackathon",
-      formData,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, 
-        },
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await axios.post(
+        "http://localhost:8080/addhackathon",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log("Form response:", response.data);
+      alert("Hackathon team added successfully!");
+      navigate("/hackathon");
+    } catch (error) {
+      console.error("Error submitting hackathon:", error);
+
+      if (error.response && error.response.status === 401) {
+        alert("You must login first to add a team!");
+        navigate("/login");
+      } else {
+        alert("Something went wrong while submitting the form.");
       }
-    );
-
-    console.log("Form response:", response.data);
-    alert("Hackathon team added successfully!");
-    navigate("/hackathon"); 
-  } catch (error) {
-    console.error("Error submitting hackathon:", error);
-    if (error.response && error.response.status === 401) {
-      alert("You must login first to add a team!");
-      navigate("/login");
-    } else {
-      alert("Something went wrong while submitting the form.");
+    } finally {
+      setLoading(false); // enable button again if error
     }
-  }
-};
-
+  };
 
   return (
     <div
@@ -80,10 +88,6 @@ function FindTeam() {
           .fadeInUp {
             animation: fadeInUp 0.7s ease-out;
           }
-          input:focus, textarea:focus {
-            border-color: #007bff !important;
-            box-shadow: 0 0 10px rgba(0,123,255,0.3) !important;
-          }
         `}
       </style>
 
@@ -97,15 +101,6 @@ function FindTeam() {
           background: "rgba(255, 255, 255, 0.2)",
           backdropFilter: "blur(12px)",
           boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-          transition: "transform 0.3s ease, box-shadow 0.3s ease",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = "translateY(-5px)";
-          e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.25)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.2)";
         }}
       >
         <h3
@@ -116,11 +111,10 @@ function FindTeam() {
             fontWeight: "700",
           }}
         >
-           Find Teammates for Hackathon
+          Find Teammates for Hackathon
         </h3>
 
         <form className="row g-3" onSubmit={handleSubmit}>
-          {/* Hackathon Name */}
           <div className="col-md-6">
             <label className="form-label fw-semibold">Hackathon Name</label>
             <input
@@ -131,14 +125,9 @@ function FindTeam() {
               onChange={handleChange}
               required
               placeholder="e.g. Smart India Hackathon"
-              style={{
-                borderRadius: "10px",
-                border: "1px solid #ced4da",
-              }}
             />
           </div>
 
-          {/* Team Name */}
           <div className="col-md-6">
             <label className="form-label fw-semibold">Team Name</label>
             <input
@@ -149,14 +138,9 @@ function FindTeam() {
               onChange={handleChange}
               required
               placeholder="e.g. CodeWarriors"
-              style={{
-                borderRadius: "10px",
-                border: "1px solid #ced4da",
-              }}
             />
           </div>
 
-          {/* Date */}
           <div className="col-md-6">
             <label className="form-label fw-semibold">Date</label>
             <input
@@ -166,14 +150,9 @@ function FindTeam() {
               value={formData.date}
               onChange={handleChange}
               required
-              style={{
-                borderRadius: "10px",
-                border: "1px solid #ced4da",
-              }}
             />
           </div>
 
-          {/* Members Needed */}
           <div className="col-md-6">
             <label className="form-label fw-semibold">Members Needed</label>
             <input
@@ -184,14 +163,9 @@ function FindTeam() {
               value={formData.neededmembers}
               onChange={handleChange}
               required
-              style={{
-                borderRadius: "10px",
-                border: "1px solid #ced4da",
-              }}
             />
           </div>
 
-          {/* Skills */}
           <div className="col-12">
             <label className="form-label fw-semibold">Required Skills</label>
             <input
@@ -201,15 +175,9 @@ function FindTeam() {
               name="skills"
               value={formData.skills}
               onChange={handleChange}
-              required
-              style={{
-                borderRadius: "10px",
-                border: "1px solid #ced4da",
-              }}
             />
           </div>
 
-          {/* Description */}
           <div className="col-12">
             <label className="form-label fw-semibold">Project Description</label>
             <textarea
@@ -219,37 +187,24 @@ function FindTeam() {
               name="description"
               value={formData.description}
               onChange={handleChange}
-              style={{
-                borderRadius: "10px",
-                border: "1px solid #ced4da",
-              }}
             ></textarea>
           </div>
 
-          {/* Submit Button */}
           <div className="col-12 mt-3">
             <button
               type="submit"
               className="btn w-100"
+              disabled={loading} // 🔥 Disable button
               style={{
-                background: "linear-gradient(135deg, #0d6efd, #007bff)",
+                background: loading
+                  ? "gray"
+                  : "linear-gradient(135deg, #0d6efd, #007bff)",
                 color: "white",
                 borderRadius: "10px",
-                fontSize: "1.1rem",
                 padding: "12px",
-                boxShadow: "0 5px 15px rgba(13,110,253,0.3)",
-                transition: "all 0.3s ease",
               }}
-              onMouseOver={(e) =>
-                (e.target.style.boxShadow =
-                  "0 8px 20px rgba(13,110,253,0.5)")
-              }
-              onMouseOut={(e) =>
-                (e.target.style.boxShadow =
-                  "0 5px 15px rgba(13,110,253,0.3)")
-              }
             >
-              🔍 Find Teammates
+              {loading ? "Submitting..." : "🔍 Find Teammates"}
             </button>
           </div>
         </form>

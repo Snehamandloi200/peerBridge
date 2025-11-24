@@ -21,6 +21,12 @@ const hackathonSchema=new Schema({
     description: {
         type: String
     },
+    email:{
+        type :String,
+    },
+    linkedin:{
+        type : String,
+    },
 
      owner:{
         type: Schema.Types.ObjectId,

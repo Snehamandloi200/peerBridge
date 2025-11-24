@@ -19,6 +19,12 @@ const sellSchema=new Schema({
         type: String
     },
     image:String,
+    email:{
+        type: String,
+    },
+    contact:{
+        type:Number,
+    },
     owner:{
         type: Schema.Types.ObjectId,
         ref: "User"

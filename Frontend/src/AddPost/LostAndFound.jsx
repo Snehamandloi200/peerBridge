@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 function LostAndFound() {
   const navigate = useNavigate();
+
+  // Form Inputs
   const [formData, setFormData] = useState({
     status: "",
     itemName: "",
@@ -12,35 +14,34 @@ function LostAndFound() {
     image: null,
   });
 
-  // Fade-in animation when component mounts
+  // Fade Animation
   const [visible, setVisible] = useState(false);
+
+  // Prevent double submit
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   useEffect(() => {
     setTimeout(() => setVisible(true), 100);
   }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      image: e.target.files[0],
-    });
+    setFormData({ ...formData, image: e.target.files[0] });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (isSubmitting) return; // ⛔ STOP double click
+
+    setIsSubmitting(true);
+
     const form = new FormData();
-    form.append("status", formData.status);
-    form.append("itemName", formData.itemName);
-    form.append("description", formData.description);
-    form.append("location", formData.location);
-    form.append("image", formData.image);
+    Object.entries(formData).forEach(([key, value]) => form.append(key, value));
 
     try {
       const response = await axios.post(
@@ -53,10 +54,14 @@ function LostAndFound() {
           },
         }
       );
+
+      alert("Lost & Found Item Submitted Successfully!");
       navigate("/lostandfound");
-      console.log("Success:", response.data);
     } catch (error) {
       console.error("Error posting item:", error);
+      alert("Something went wrong while submitting!");
+    } finally {
+      setIsSubmitting(false); // Enable button again
     }
   };
 
@@ -67,7 +72,6 @@ function LostAndFound() {
         minHeight: "100vh",
         background: "linear-gradient(135deg, #fce4ec, #e3f2fd)",
         padding: "30px",
-        transition: "background 1s ease",
       }}
     >
       <div
@@ -76,54 +80,25 @@ function LostAndFound() {
           width: "100%",
           maxWidth: "600px",
           borderRadius: "20px",
-          border: "none",
-          background: "rgba(255, 255, 255, 0.95)",
-          backdropFilter: "blur(8px)",
-          transform: visible ? "translateY(0)" : "translateY(30px)",
           opacity: visible ? 1 : 0,
-          transition: "all 0.8s ease",
-          boxShadow: "0 10px 25px rgba(0, 0, 0, 0.15)",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = "scale(1.02)";
-          e.currentTarget.style.boxShadow = "0 15px 35px rgba(0,0,0,0.2)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = "scale(1)";
-          e.currentTarget.style.boxShadow = "0 10px 25px rgba(0,0,0,0.15)";
+          transform: visible ? "translateY(0)" : "translateY(30px)",
+          transition: "0.8s ease",
         }}
       >
-        <h3
-          className="text-center mb-4"
-          style={{
-            color: "#d81b60",
-            fontWeight: "600",
-            letterSpacing: "1px",
-            animation: visible ? "fadeIn 1s ease" : "none",
-          }}
-        >
+        <h3 className="text-center mb-4" style={{ color: "#d81b60" }}>
           Lost & Found Report
         </h3>
 
         <form className="row g-3" onSubmit={handleSubmit}>
+          {/* Status */}
           <div className="col-md-6">
-            <label className="form-label fw-semibold text-secondary">
-              Status
-            </label>
+            <label className="form-label">Status</label>
             <select
-              className="form-select rounded-3 shadow-sm"
+              className="form-select"
               name="status"
               value={formData.status}
               onChange={handleChange}
               required
-              style={{
-                border: "1px solid #f48fb1",
-                transition: "box-shadow 0.3s ease",
-              }}
-              onFocus={(e) =>
-                (e.target.style.boxShadow = "0 0 10px #f06292")
-              }
-              onBlur={(e) => (e.target.style.boxShadow = "none")}
             >
               <option value="">Select</option>
               <option>Lost</option>
@@ -131,126 +106,68 @@ function LostAndFound() {
             </select>
           </div>
 
+          {/* Item Name */}
           <div className="col-md-6">
-            <label className="form-label fw-semibold text-secondary">
-              Item Name
-            </label>
+            <label className="form-label">Item Name</label>
             <input
               type="text"
-              className="form-control rounded-3 shadow-sm"
-              placeholder="Wallet, ID Card, etc."
+              className="form-control"
               name="itemName"
+              placeholder="Wallet, Bag, ID Card..."
               value={formData.itemName}
               onChange={handleChange}
               required
-              style={{
-                border: "1px solid #f48fb1",
-                transition: "box-shadow 0.3s ease",
-              }}
-              onFocus={(e) =>
-                (e.target.style.boxShadow = "0 0 10px #f06292")
-              }
-              onBlur={(e) => (e.target.style.boxShadow = "none")}
             />
           </div>
 
+          {/* Location */}
           <div className="col-12">
-            <label className="form-label fw-semibold text-secondary">
-              Location
-            </label>
+            <label className="form-label">Location</label>
             <input
               type="text"
-              className="form-control rounded-3 shadow-sm"
-              placeholder="Where it was lost/found"
+              className="form-control"
               name="location"
+              placeholder="Where it was lost/found"
               value={formData.location}
               onChange={handleChange}
               required
-              style={{
-                border: "1px solid #f48fb1",
-                transition: "box-shadow 0.3s ease",
-              }}
-              onFocus={(e) =>
-                (e.target.style.boxShadow = "0 0 10px #64b5f6")
-              }
-              onBlur={(e) => (e.target.style.boxShadow = "none")}
             />
           </div>
 
+          {/* Description */}
           <div className="col-12">
-            <label className="form-label fw-semibold text-secondary">
-              Description
-            </label>
+            <label className="form-label">Description</label>
             <textarea
-              className="form-control rounded-3 shadow-sm"
+              className="form-control"
               rows="3"
-              placeholder="Details about the item..."
               name="description"
+              placeholder="Write details..."
               value={formData.description}
               onChange={handleChange}
               required
-              style={{
-                border: "1px solid #f48fb1",
-                transition: "box-shadow 0.3s ease",
-              }}
-              onFocus={(e) =>
-                (e.target.style.boxShadow = "0 0 10px #ba68c8")
-              }
-              onBlur={(e) => (e.target.style.boxShadow = "none")}
             ></textarea>
           </div>
 
+          {/* File Upload */}
           <div className="col-12">
-            <label className="form-label fw-semibold text-secondary">
-              Photo (Optional)
-            </label>
+            <label className="form-label">Upload Photo (Optional)</label>
             <input
               type="file"
-              className="form-control rounded-3 shadow-sm"
+              className="form-control"
               accept="image/*"
               name="image"
               onChange={handleFileChange}
-              style={{
-                border: "1px solid #f48fb1",
-                transition: "box-shadow 0.3s ease",
-              }}
-              onFocus={(e) =>
-                (e.target.style.boxShadow = "0 0 10px #f06292")
-              }
-              onBlur={(e) => (e.target.style.boxShadow = "none")}
             />
           </div>
 
+          {/* Button */}
           <div className="col-12 mt-3">
             <button
               type="submit"
-              className="btn w-100"
-              style={{
-                background:
-                  "linear-gradient(90deg, #f06292, #ec407a, #d81b60)",
-                color: "white",
-                border: "none",
-                borderRadius: "10px",
-                fontWeight: "600",
-                transition: "all 0.3s ease",
-                boxShadow: "0 5px 15px rgba(216,27,96,0.3)",
-              }}
-              onMouseOver={(e) => {
-                e.target.style.background =
-                  "linear-gradient(90deg, #d81b60, #ec407a, #f06292)";
-                e.target.style.boxShadow =
-                  "0 8px 25px rgba(216,27,96,0.5)";
-                e.target.style.transform = "scale(1.03)";
-              }}
-              onMouseOut={(e) => {
-                e.target.style.background =
-                  "linear-gradient(90deg, #f06292, #ec407a, #d81b60)";
-                e.target.style.boxShadow =
-                  "0 5px 15px rgba(216,27,96,0.3)";
-                e.target.style.transform = "scale(1)";
-              }}
+              className="btn btn-danger w-100"
+              disabled={isSubmitting}
             >
-               Submit Report
+              {isSubmitting ? "Submitting..." : "Submit Report"}
             </button>
           </div>
         </form>

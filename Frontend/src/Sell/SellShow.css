@@ -1,0 +1,160 @@
+/* Full background with no gaps */
+.sellshow-section {
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 40px 15px;
+  background: linear-gradient(135deg, #f0f6ff, #e3ebff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+/* Compact and centered card */
+.sellshow-card {
+  background: #ffffff;
+  margin-top: 70px;
+  border-radius: 20px;
+  overflow: hidden;
+  max-width: 520px; /* 🟢 Reduced from 720px to make smaller */
+  width: 65%;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
+.sellshow-card:hover {
+  transform: translateY(-8px);
+}
+
+/* Image */
+.sellshow-image {
+  width: 100%;
+  height: 300px; /* 🟢 Reduced from 360px */
+  object-fit: cover;
+  /* border-bottom: 4px solid #6c63ff; */
+}
+
+/* Card content */
+.sellshow-body {
+  padding: 25px;
+  text-align: center;
+}
+
+.sellshow-title {
+  font-size: 1.8rem; /* 🟢 Slightly smaller title */
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.sellshow-description {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.sellshow-contact {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 18px;
+}
+
+/* Price section */
+.price-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.price-label {
+  font-weight: 600;
+  color: #333;
+}
+
+.price-tag {
+  background: #6c63ff;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Buttons */
+.sellshow-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.sellshow-btn {
+  border: none;
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn-back {
+  background-color: #4b9cd3;
+}
+
+.btn-back:hover {
+  background-color: #3a8ac7;
+}
+
+.btn-edit {
+  background-color: #f5a623;
+}
+
+.btn-edit:hover {
+  background-color: #e6951a;
+}
+
+.btn-delete {
+  background-color: #ff4d4d;
+}
+
+.btn-delete:hover {
+  background-color: #e63946;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .sellshow-image {
+    height: 260px;
+  }
+
+  .sellshow-card {
+    width: 92%;
+  }
+}
+
+@media (max-width: 576px) {
+  .sellshow-image {
+    height: 200px;
+  }
+
+  .sellshow-title {
+    font-size: 1.5rem;
+  }
+
+  .price-tag {
+    font-size: 1rem;
+  }
+
+  .sellshow-body {
+    padding: 18px;
+  }
+}
