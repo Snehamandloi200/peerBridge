@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams ,useNavigate} from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 function HackathonShow() {
-   const navigate = useNavigate();
-
+  const navigate = useNavigate();
   const { id } = useParams();
   const [hackathon, setHackathon] = useState(null);
 
@@ -17,15 +16,14 @@ function HackathonShow() {
   }, [id]);
 
   const [userId, setUserId] = useState(null);
-    
-    useEffect(() => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        const decoded = jwtDecode(token);
-        setUserId(decoded.id); 
-      }
-    }, []);
-  
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwtDecode(token);
+      setUserId(decoded.id);
+    }
+  }, []);
 
   if (!hackathon) {
     return (
@@ -33,216 +31,195 @@ function HackathonShow() {
         className="d-flex justify-content-center align-items-center"
         style={{
           minHeight: "100vh",
-       
-          background: "linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)",
+          background: "linear-gradient(135deg, #fdfbfb, #ebedee)",
         }}
       >
-        <p style={{ fontSize: "1.3rem", color: "#555" }}>Loading hackathon details...</p>
+        <p style={{ fontSize: "1.3rem", color: "#555" }}>
+          Loading hackathon details...
+        </p>
       </div>
     );
   }
 
-const handleDelete = async () => {
-  if (window.confirm("Are you sure you want to delete this item?")) {
-    try {
-      const token = localStorage.getItem("token");
+  const handleDelete = async () => {
+    if (window.confirm("Are you sure you want to delete this item?")) {
+      try {
+        const token = localStorage.getItem("token");
 
-      await axios.delete(`http://localhost:8080/hackathon/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`, 
-        },
-      });
+        await axios.delete(`http://localhost:8080/hackathon/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      alert("Item deleted successfully!");
-      navigate("/hackathon");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to delete the item. Please try again.");
+        alert("Item deleted successfully!");
+        navigate("/hackathon");
+      } catch (err) {
+        console.error(err);
+        alert("Failed to delete the item. Please try again.");
+      }
     }
-  }
-};
-
-
-  
-  // const handleEdit = () => {
-  //   navigate(`/hackathonedit/${id}`); 
-  // };
-
-
+  };
 
   return (
     <div
       className="container-fluid d-flex justify-content-center align-items-center"
       style={{
         minHeight: "100vh",
-           width:"1550px",
-        background: "linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)",
         padding: "20px",
-
+        background: "linear-gradient(135deg, #fdfbfb, #ebedee)",
       }}
     >
-      <div
-        className="card text-center shadow-lg p-4"
-        style={{
-          width: "100%",
-          maxWidth: "500px",
-          borderRadius: "20px",
-          background: "rgba(255, 255, 255, 0.95)",
-          backdropFilter: "blur(8px)",
-          transition: "transform 0.4s ease, box-shadow 0.4s ease",
-          animation: "fadeIn 0.8s ease-in-out",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = "translateY(-8px)";
-          e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.2)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.1)";
-        }}
-      >
-        <h2
-          className="mb-3"
-          style={{
-            fontWeight: "700",
-            color: "#34495e",
-            textTransform: "capitalize",
-          }}
-        >
-           {hackathon.project}
-        </h2>
-
-        <h5
-          className="mb-3"
-          style={{
-            color: "#7f8c8d",
-            fontWeight: "600",
-          }}
-        >
-           Team: {hackathon.name}
-        </h5>
-
-        <span
-          className="badge mb-4"
-          style={{
-            background: "linear-gradient(90deg, #27ae60, #2ecc71)",
-            fontSize: "0.9rem",
-            padding: "10px 20px",
-            borderRadius: "20px",
-            color: "white",
-            letterSpacing: "0.5px",
-          }}
-        >
-          Members Needed: {hackathon.neededmembers}
-        </span>
-
-        <p
-          style={{
-            color: "#555",
-            lineHeight: "1.6",
-            fontSize: "1rem",
-            marginBottom: "20px",
-          }}
-        >
-          {hackathon.description}
-        </p>
-
-<p
-          style={{
-            color: "#555",
-            lineHeight: "1.6",
-            fontSize: "1rem",
-            marginBottom: "20px",
-          }}
-        >
-          owned by: {hackathon.creator}
-        
-        </p>
-
-
+      <div className="card-wrapper">
         <div
-          className="card-footer border-0"
+          className="card text-center shadow-lg p-4 responsive-card"
           style={{
-            backgroundColor: "transparent",
-            fontSize: "0.95rem",
-            fontWeight: "500",
-            color: "#2c3e50",
+            borderRadius: "20px",
+            background: "rgba(255,255,255,0.95)",
+            backdropFilter: "blur(8px)",
+            animation: "fadeIn 0.8s ease-in-out",
           }}
         >
-         <span style={{ color: "#16a085" }}>Contact Number: {hackathon.contact}</span> <i>Available Soon</i>
-       <div>
-        <button
-            onClick={() => navigate(-1)}
-            className="btn mt-4 px-4 fw-semibold"
-            style={{
-              background: "linear-gradient(135deg, #42a5f5, #1e88e5)",
-              color: "white",
-              borderRadius: "12px",
-              fontSize: "1rem",
-              boxShadow: "0 6px 20px rgba(33, 150, 243, 0.3)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
-            onMouseOver={(e) => {
-              e.target.style.transform = "scale(1.05)";
-              e.target.style.boxShadow = "0 10px 25px rgba(33, 150, 243, 0.5)";
-            }}
-            onMouseOut={(e) => {
-              e.target.style.transform = "scale(1)";
-              e.target.style.boxShadow = "0 6px 20px rgba(33, 150, 243, 0.3)";
-            }}
-          >
-             Back
-          </button>
+          <h2 className="mb-3 title-text">{hackathon.project}</h2>
 
-                   {hackathon.owner?._id === userId && (
-  <>
-    <button
-      onClick={() => navigate(`/hackathonedit/${id}`)}
-      className="btn px-4 fw-semibold"
-      style={{
-        background: "linear-gradient(135deg, #ffb74d, #f57c00)",
-        color: "white",
-        borderRadius: "12px",
-        fontSize: "1rem",
-        boxShadow: "0 6px 20px rgba(255, 152, 0, 0.3)",
-        transition: "transform 0.3s ease, box-shadow 0.3s ease",
-      }}
-    >
-       Edit
-    </button>
+          <h5 className="mb-3 team-text">Team: {hackathon.name}</h5>
 
-    <button
-      onClick={handleDelete}
-      className="btn px-4 fw-semibold"
-      style={{
-        background: "linear-gradient(135deg, #e57373, #d32f2f)",
-        color: "white",
-        borderRadius: "12px",
-        fontSize: "1rem",
-        boxShadow: "0 6px 20px rgba(244, 67, 54, 0.3)",
-        transition: "transform 0.3s ease, box-shadow 0.3s ease",
-      }}
-    >
-       Delete
-    </button>
-  </>
-)}
+          <span className="badge members-badge mb-4">
+            Members Needed: {hackathon.neededmembers}
+          </span>
 
+          <p className="description">{hackathon.description}</p>
+
+          <p className="description">Owned by: {hackathon.creator}</p>
+
+          <div >
+            <span className="contact-text">
+              Contact Number: {hackathon.contact}
+            </span>
+
+            <div className="button-group mt-3">
+              <button
+                onClick={() => navigate(-1)}
+                className="btn custom-btn back-btn"
+              >
+                Back
+              </button>
+
+              {hackathon.owner?._id === userId && (
+                <>
+                  <button
+                    onClick={() => navigate(`/hackathonedit/${id}`)}
+                    className="btn custom-btn edit-btn"
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    onClick={handleDelete}
+                    className="btn custom-btn delete-btn"
+                  >
+                    Delete
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
+      {/* Responsive CSS */}
       <style>
         {`
+          .card-wrapper {
+            width: 100%;
+            max-width: 550px;
+          }
+
+          .responsive-card {
+            transition: transform .4s, box-shadow .4s;
+          }
+
+          .responsive-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+          }
+
+          .title-text {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #34495e;
+          }
+
+          .team-text {
+            color: #7f8c8d;
+            font-weight: 600;
+          }
+
+          .members-badge {
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+            font-size: 0.9rem;
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: white;
+          }
+
+          .description {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1rem;
+            margin-bottom: 15px;
+          }
+
+          .contact-text {
+            color: #16a085;
+            font-size: 1rem;
+          }
+
+          .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+          }
+
+          .custom-btn {
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            min-width: 100px;
+          }
+
+          .back-btn {
+            background: linear-gradient(135deg,#42a5f5,#1e88e5);
+          }
+
+          .edit-btn {
+            background: linear-gradient(135deg,#ffb74d,#f57c00);
+          }
+
+          .delete-btn {
+            background: linear-gradient(135deg,#e57373,#d32f2f);
+          }
+
+          @media (max-width: 768px) {
+            .title-text {
+              font-size: 1.5rem;
+            }
+
+            .description {
+              font-size: 0.95rem;
+            }
+
+            .custom-btn {
+              width: 100%;
+            }
+          }
+
           @keyframes fadeIn {
-            from {
-              opacity: 0;
-              transform: translateY(20px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
           }
         `}
       </style>

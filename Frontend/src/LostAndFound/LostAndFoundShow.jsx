@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 function LostAndFoundShow() {
   const { id } = useParams();
@@ -16,12 +16,12 @@ function LostAndFoundShow() {
   }, [id]);
 
   const [userId, setUserId] = useState(null);
-  
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwtDecode(token);
-      setUserId(decoded.id); 
+      setUserId(decoded.id);
     }
   }, []);
 
@@ -39,31 +39,24 @@ function LostAndFoundShow() {
     );
   }
 
- 
   const handleDelete = async () => {
-  if (window.confirm("Are you sure you want to delete this item?")) {
-    try {
-      const token = localStorage.getItem("token");
+    if (window.confirm("Are you sure you want to delete this item?")) {
+      try {
+        const token = localStorage.getItem("token");
 
-      await axios.delete(`http://localhost:8080/lostandfound/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`, 
-        },
-      });
+        await axios.delete(`http://localhost:8080/lostandfound/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      alert("Item deleted successfully!");
-      navigate("/lostandfound");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to delete the item. Please try again.");
+        alert("Item deleted successfully!");
+        navigate("/lostandfound");
+      } catch (err) {
+        console.error(err);
+        alert("Failed to delete the item. Please try again.");
+      }
     }
-  }
-};
-
-
-  
-  const handleEdit = () => {
-    navigate(`/lostandfoundedit/${id}`); 
   };
 
   return (
@@ -71,23 +64,21 @@ function LostAndFoundShow() {
       className="d-flex justify-content-center align-items-center"
       style={{
         minHeight: "100vh",
-        width:"1550px",
-       background: "linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)",
-        padding: "40px",
+        width: "100%",
+        padding: "20px",
+        background: "linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)",
       }}
     >
       <div
-        className="card shadow-lg border-0 p-4"
+        className="card shadow-lg border-0 p-4 mt-5"
         style={{
           width: "100%",
-          maxWidth: "600px",
+          maxWidth: "500px",
           borderRadius: "20px",
           background: "rgba(255, 255, 255, 0.95)",
           backdropFilter: "blur(10px)",
           animation: "fadeInUp 0.8s ease",
           boxShadow: "0 10px 30px rgba(0, 0, 0, 0.15)",
-          height: "800px",
-          marginTop: "100px",
         }}
       >
         {/* Image Section */}
@@ -103,8 +94,8 @@ function LostAndFoundShow() {
             alt={item.itemName}
             className="img-fluid"
             style={{
-              height: "350px",
               width: "100%",
+              maxHeight: "250px",
               objectFit: "cover",
               borderRadius: "15px",
               transition: "transform 0.5s ease",
@@ -118,7 +109,7 @@ function LostAndFoundShow() {
           />
         </div>
 
-        {/* Card Content */}
+        {/* Details Section */}
         <div className="text-center">
           <span
             className={`badge ${
@@ -133,13 +124,7 @@ function LostAndFoundShow() {
             {item.status}
           </span>
 
-          <h3
-            className="fw-bold mb-2"
-            style={{
-              color: "#0d47a1",
-              letterSpacing: "0.5px",
-            }}
-          >
+          <h3 className="fw-bold mb-2" style={{ color: "#0d47a1" }}>
             {item.itemName}
           </h3>
 
@@ -147,27 +132,14 @@ function LostAndFoundShow() {
 
           <p
             className="text-secondary px-3"
-            style={{
-              fontSize: "1rem",
-              lineHeight: "1.6",
-              marginBottom: "15px",
-            }}
+            style={{ fontSize: "1rem", lineHeight: "1.6" }}
           >
             {item.description}
           </p>
 
-
-          <p
-          style={{
-            color: "#555",
-            lineHeight: "1.6",
-            fontSize: "1rem",
-            marginBottom: "20px",
-          }}
-        >
-          owned by: {item.creator}
-        
-        </p>
+          <p style={{ color: "#555", lineHeight: "1.6" }}>
+            Owned By: {item.creator}
+          </p>
 
           <div
             className="card-footer border-0 bg-transparent mt-3"
@@ -177,15 +149,17 @@ function LostAndFoundShow() {
               fontWeight: "600",
             }}
           >
-             Contact Number:{" "}
+            Contact Number:{" "}
             <span className="text-dark fw-semibold">
               {item.contact || "Not Provided"}
             </span>
           </div>
 
           {/* Buttons Section */}
-          <div className="mt-4 d-flex justify-content-center gap-3">
-            {/* Back Button */}
+          <div
+            className="mt-4 d-flex flex-wrap justify-content-center gap-3"
+            style={{ width: "100%" }}
+          >
             <button
               onClick={() => navigate(-1)}
               className="btn px-4 fw-semibold"
@@ -194,71 +168,70 @@ function LostAndFoundShow() {
                 color: "white",
                 borderRadius: "12px",
                 fontSize: "1rem",
-                boxShadow: "0 6px 20px rgba(33, 150, 243, 0.3)",
-                transition: "transform 0.3s ease, box-shadow 0.3s ease",
-              }}
-              onMouseOver={(e) => {
-                e.target.style.transform = "scale(1.05)";
-                e.target.style.boxShadow =
-                  "0 10px 25px rgba(33, 150, 243, 0.5)";
-              }}
-              onMouseOut={(e) => {
-                e.target.style.transform = "scale(1)";
-                e.target.style.boxShadow =
-                  "0 6px 20px rgba(33, 150, 243, 0.3)";
               }}
             >
-               Back
+              Back
             </button>
 
-                      {item.owner === userId && (
-  <>
-    <button
-      onClick={() => navigate(`/lostandfoundedit/${id}`)}
-      className="btn px-4 fw-semibold"
-      style={{
-        background: "linear-gradient(135deg, #ffb74d, #f57c00)",
-        color: "white",
-        borderRadius: "12px",
-        fontSize: "1rem",
-        boxShadow: "0 6px 20px rgba(255, 152, 0, 0.3)",
-        transition: "transform 0.3s ease, box-shadow 0.3s ease",
-      }}
-    >
-      Edit
-    </button>
+            {item.owner === userId && (
+              <>
+                <button
+                  onClick={() => navigate(`/lostandfoundedit/${id}`)}
+                  className="btn px-4 fw-semibold"
+                  style={{
+                    background: "linear-gradient(135deg, #ffb74d, #f57c00)",
+                    color: "white",
+                    borderRadius: "12px",
+                  }}
+                >
+                  Edit
+                </button>
 
-    <button
-      onClick={handleDelete}
-      className="btn px-4 fw-semibold"
-      style={{
-        background: "linear-gradient(135deg, #e57373, #d32f2f)",
-        color: "white",
-        borderRadius: "12px",
-        fontSize: "1rem",
-        boxShadow: "0 6px 20px rgba(244, 67, 54, 0.3)",
-        transition: "transform 0.3s ease, box-shadow 0.3s ease",
-      }}
-    >
-       Delete
-    </button>
-  </>
-)}
+                <button
+                  onClick={handleDelete}
+                  className="btn px-4 fw-semibold"
+                  style={{
+                    background: "linear-gradient(135deg, #e57373, #d32f2f)",
+                    color: "white",
+                    borderRadius: "12px",
+                  }}
+                >
+                  Delete
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>
 
-      {/* CSS Animations */}
+      {/* CSS Animations + Media Queries */}
       <style>
         {`
           @keyframes fadeInUp {
-            from {
-              opacity: 0;
-              transform: translateY(40px);
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+
+          /* RESPONSIVE DESIGN */
+          @media (max-width: 768px) {
+            .card {
+              padding: 20px !important;
             }
-            to {
-              opacity: 1;
-              transform: translateY(0);
+            img {
+              max-height: 250px !important;
+            }
+            h3 { font-size: 1.4rem !important; }
+            h5 { font-size: 1rem !important; }
+            p { font-size: 0.95rem !important; }
+          }
+
+          @media (max-width: 480px) {
+            .btn {
+              width: 100% !important;
+            }
+            h3 { font-size: 1.2rem !important; }
+            img {
+              max-height: 200px !important;
             }
           }
         `}

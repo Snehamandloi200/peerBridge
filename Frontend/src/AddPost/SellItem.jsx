@@ -70,10 +70,10 @@ function SellItem() {
       <div className={`sellitem-card shadow-lg ${fadeIn ? "fade-in" : ""}`}>
         <h2 className="sellitem-title text-center mb-4">🛍️ Sell Your Item</h2>
 
-        <form className="row g-3" onSubmit={handleSubmit}>
+        <form className="row " onSubmit={handleSubmit}>
           
           {/* Title */}
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label className="form-label fw-semibold">Item Title</label>
             <input
               type="text"
@@ -87,7 +87,7 @@ function SellItem() {
           </div>
 
           {/* Price */}
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label className="form-label fw-semibold">Price (₹)</label>
             <input
               type="number"
@@ -101,7 +101,7 @@ function SellItem() {
           </div>
 
           {/* Category */}
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label className="form-label fw-semibold">Category</label>
             <select
               className="form-select input-custom"
@@ -119,7 +119,7 @@ function SellItem() {
           </div>
 
           {/* Location */}
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label className="form-label fw-semibold">Pickup Location</label>
             <input
               type="text"
@@ -151,7 +151,7 @@ function SellItem() {
             <input
               type="text"
               className="form-control shadow-sm"
-              placeholder="React, Python, UI Design..."
+              placeholder="Enter owner's name"
               name="creator"
               value={formData.creator}
               onChange={handleChange}
@@ -160,7 +160,7 @@ function SellItem() {
 
           <h5 className="fw-bold text-primary mt-3">📞 Contact Details</h5>
 
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label className="form-label fw-semibold text-secondary">
               Contact Number
             </label>
@@ -181,7 +181,7 @@ function SellItem() {
             />
           </div>
 
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label className="form-label fw-semibold text-secondary">
               Gmail ID
             </label>

@@ -91,9 +91,9 @@ function LostAndFound() {
           Lost & Found Report
         </h3>
 
-        <form className="row g-3" onSubmit={handleSubmit}>
+        <form className="row " onSubmit={handleSubmit}>
           {/* Status */}
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label className="form-label">Status</label>
             <select
               className="form-select"
@@ -109,7 +109,7 @@ function LostAndFound() {
           </div>
 
           {/* Item Name */}
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label className="form-label">Item Name</label>
             <input
               type="text"
@@ -155,7 +155,7 @@ function LostAndFound() {
             <input
               type="text"
               className="form-control shadow-sm"
-              placeholder="React, Python, UI Design..."
+              placeholder="Enter owner`s name"
               name="creator"
               value={formData.creator}
               onChange={handleChange}
@@ -164,7 +164,7 @@ function LostAndFound() {
 
            <h5 className="fw-bold text-primary mt-3">📞 Contact Details</h5>
 
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label className="form-label fw-semibold text-secondary">
               Contact Number
             </label>

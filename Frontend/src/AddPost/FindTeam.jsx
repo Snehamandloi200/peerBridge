@@ -116,7 +116,7 @@ function FindTeam() {
           Find Teammates for Hackathon
         </h3>
 
-        <form className="row g-3" onSubmit={handleSubmit}>
+        <form className="row" onSubmit={handleSubmit}>
           <div className="col-md-6">
             <label className="form-label fw-semibold">Hackathon Name</label>
             <input
@@ -130,7 +130,7 @@ function FindTeam() {
             />
           </div>
 
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label className="form-label fw-semibold">Team Name</label>
             <input
               type="text"
@@ -143,7 +143,7 @@ function FindTeam() {
             />
           </div>
 
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label className="form-label fw-semibold">Date</label>
             <input
               type="date"
@@ -155,7 +155,7 @@ function FindTeam() {
             />
           </div>
 
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label className="form-label fw-semibold">Members Needed</label>
             <input
               type="number"
@@ -185,7 +185,7 @@ function FindTeam() {
             <input
               type="text"
               className="form-control shadow-sm"
-              placeholder="React, Python, UI Design..."
+              placeholder="Enter owner`s name"
               name="creator"
               value={formData.creator}
               onChange={handleChange}
