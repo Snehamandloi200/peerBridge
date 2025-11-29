@@ -156,6 +156,19 @@ function LostAndFoundShow() {
             {item.description}
           </p>
 
+
+          <p
+          style={{
+            color: "#555",
+            lineHeight: "1.6",
+            fontSize: "1rem",
+            marginBottom: "20px",
+          }}
+        >
+          owned by: {item.creator}
+        
+        </p>
+
           <div
             className="card-footer border-0 bg-transparent mt-3"
             style={{
@@ -166,7 +179,7 @@ function LostAndFoundShow() {
           >
              Contact Number:{" "}
             <span className="text-dark fw-semibold">
-              {item.contactNumber || "Not Provided"}
+              {item.contact || "Not Provided"}
             </span>
           </div>
 

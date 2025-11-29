@@ -1,23 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ProfileEdit = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState({
-    username: "Sneha Mandloi",
-    email: "sneha@example.com",
-    enroll: "0805CS221234",
-    year: "3rd Year",
-    semester: "6th",
-    address: "Borawan, MP",
-    profileLink: "https://linkedin.com/in/sneha",
+    username: "",
+    email: "",
+    enroll: "",
+    year: "",
+    semester: "",
+    address: "",
+    profileLink: "",
   });
 
+  // ------------- FETCH PROFILE FROM BACKEND ----------------
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const res = await axios.get("http://localhost:8080/profile", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setData(res.data);
+       
+      } catch (err) {
+        console.error("Error loading profile:", err);
+        alert("Failed to load profile. Please login again.");
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  // ------------- HANDLE FORM CHANGE ----------------
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const updateProfile = (e) => {
+  // ------------- UPDATE PROFILE IN BACKEND ----------------
+  const updateProfile = async (e) => {
     e.preventDefault();
-    alert("Profile Updated Successfully!");
+
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await axios.put(
+        "http://localhost:8080/profileedit",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      alert("Profile Updated Successfully!");
+       navigate("/profile");
+    } catch (err) {
+      console.error("Update Error:", err.response?.data || err.message);
+      alert("Failed to update profile.");
+    }
   };
 
   return (
@@ -30,8 +76,9 @@ const ProfileEdit = () => {
           ✏️ Edit Profile
         </h2>
 
-        <form onSubmit={updateProfile} className="row ">
+        <form onSubmit={updateProfile} className="row">
 
+          {/* Full Name */}
           <div className="col-md-12">
             <label className="form-label fw-semibold">Full Name</label>
             <input
@@ -44,6 +91,7 @@ const ProfileEdit = () => {
             />
           </div>
 
+          {/* Email */}
           <div className="col-md-12">
             <label className="form-label fw-semibold">Email</label>
             <input
@@ -56,6 +104,7 @@ const ProfileEdit = () => {
             />
           </div>
 
+          {/* Enrollment */}
           <div className="col-md-12">
             <label className="form-label fw-semibold">Enrollment</label>
             <input
@@ -68,6 +117,7 @@ const ProfileEdit = () => {
             />
           </div>
 
+          {/* Year */}
           <div className="col-md-12">
             <label className="form-label fw-semibold">Year</label>
             <select
@@ -82,9 +132,9 @@ const ProfileEdit = () => {
               <option>3rd Year</option>
               <option>Final Year</option>
             </select>
-            
           </div>
 
+          {/* Semester */}
           <div className="col-md-12">
             <label className="form-label fw-semibold">Semester</label>
             <input
@@ -97,6 +147,7 @@ const ProfileEdit = () => {
             />
           </div>
 
+          {/* Address */}
           <div className="col-md-12">
             <label className="form-label fw-semibold">Address</label>
             <input
@@ -109,6 +160,7 @@ const ProfileEdit = () => {
             />
           </div>
 
+          {/* LinkedIn */}
           <div className="col-md-12">
             <label className="form-label fw-semibold">LinkedIn Profile</label>
             <input
@@ -121,6 +173,7 @@ const ProfileEdit = () => {
             />
           </div>
 
+          {/* Button */}
           <div className="col-12">
             <button
               type="submit"

@@ -25,6 +25,9 @@ const sellSchema=new Schema({
     contact:{
         type:Number,
     },
+    creator:{
+        type : String,
+    },
     owner:{
         type: Schema.Types.ObjectId,
         ref: "User"

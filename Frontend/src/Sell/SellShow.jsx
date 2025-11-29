@@ -59,6 +59,11 @@ function SellShow() {
           <h2 className="sellshow-title">{sell.title}</h2>
           <p className="sellshow-description">{sell.description}</p>
 
+          <p>
+          owned by: {sell.creator}
+        
+        </p>
+
           <p className="sellshow-contact">
             <strong>Contact:</strong> <span>{sell.contact || "Not Available"}</span>
           </p>

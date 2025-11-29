@@ -147,6 +147,19 @@ const handleDelete = async () => {
           {hackathon.description}
         </p>
 
+<p
+          style={{
+            color: "#555",
+            lineHeight: "1.6",
+            fontSize: "1rem",
+            marginBottom: "20px",
+          }}
+        >
+          owned by: {hackathon.creator}
+        
+        </p>
+
+
         <div
           className="card-footer border-0"
           style={{
@@ -156,7 +169,7 @@ const handleDelete = async () => {
             color: "#2c3e50",
           }}
         >
-         <span style={{ color: "#16a085" }}>Contact Number:</span> <i>Available Soon</i>
+         <span style={{ color: "#16a085" }}>Contact Number: {hackathon.contact}</span> <i>Available Soon</i>
        <div>
         <button
             onClick={() => navigate(-1)}
@@ -181,7 +194,7 @@ const handleDelete = async () => {
              Back
           </button>
 
-                   {hackathon.owner === userId && (
+                   {hackathon.owner?._id === userId && (
   <>
     <button
       onClick={() => navigate(`/hackathonedit/${id}`)}

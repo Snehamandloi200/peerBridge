@@ -11,6 +11,8 @@ function LostAndFound() {
     itemName: "",
     description: "",
     location: "",
+    contact: "",
+    creator: "",
     image: null,
   });
 
@@ -36,7 +38,7 @@ function LostAndFound() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (isSubmitting) return; // ⛔ STOP double click
+    if (isSubmitting) return; 
 
     setIsSubmitting(true);
 
@@ -147,6 +149,40 @@ function LostAndFound() {
               required
             ></textarea>
           </div>
+
+           <div className="col-12">
+            <label className="form-label fw-semibold">Owner</label>
+            <input
+              type="text"
+              className="form-control shadow-sm"
+              placeholder="React, Python, UI Design..."
+              name="creator"
+              value={formData.creator}
+              onChange={handleChange}
+            />
+          </div>
+
+           <h5 className="fw-bold text-primary mt-3">📞 Contact Details</h5>
+
+          <div className="col-md-6">
+            <label className="form-label fw-semibold text-secondary">
+              Contact Number
+            </label>
+            <input
+              type="tel"
+              className="form-control rounded-3 shadow-sm"
+              placeholder="Enter your WhatsApp or mobile number"
+              name="contact"
+              value={formData.contact}
+              onChange={handleChange}
+              required
+              pattern="[0-9]{10}"
+              style={{
+                border: "1px solid #f48fb1",
+              }}
+            />
+          </div>
+
 
           {/* File Upload */}
           <div className="col-12">

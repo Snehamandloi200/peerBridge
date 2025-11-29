@@ -11,6 +11,9 @@ function SellItem() {
     category: "",
     description: "",
     location: "",
+    contact: "",
+     gmail: "",
+     creator: "", 
     image: null,
   });
 
@@ -142,6 +145,62 @@ function SellItem() {
               required
             ></textarea>
           </div>
+
+          <div className="col-12">
+            <label className="form-label fw-semibold">Owner</label>
+            <input
+              type="text"
+              className="form-control shadow-sm"
+              placeholder="React, Python, UI Design..."
+              name="creator"
+              value={formData.creator}
+              onChange={handleChange}
+            />
+          </div>
+
+          <h5 className="fw-bold text-primary mt-3">📞 Contact Details</h5>
+
+          <div className="col-md-6">
+            <label className="form-label fw-semibold text-secondary">
+              Contact Number
+            </label>
+            <input
+              type="tel"
+              className="form-control shadow-sm"
+              placeholder="Enter your WhatsApp or mobile number"
+              name="contact"
+              value={formData.contact}
+              onChange={handleChange}
+              required
+              pattern="[0-9]{10}"
+              style={{
+                borderRadius: "12px",
+                border: "1px solid #cfd8dc",
+                padding: "12px",
+              }}
+            />
+          </div>
+
+          <div className="col-md-6">
+            <label className="form-label fw-semibold text-secondary">
+              Gmail ID
+            </label>
+            <input
+              type="email"
+              className="form-control shadow-sm"
+              placeholder="Enter your Gmail (e.g., you@gmail.com)"
+              name="gmail"
+              value={formData.gmail}
+              onChange={handleChange}
+              required
+              style={{
+                borderRadius: "12px",
+                border: "1px solid #cfd8dc",
+                padding: "12px",
+              }}
+            />
+          </div>
+
 
           {/* Upload */}
           <div className="col-12">

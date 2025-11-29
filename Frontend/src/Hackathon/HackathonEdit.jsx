@@ -140,11 +140,11 @@ if (!hackathon) {
             >
               <label className="form-label fw-semibold text-secondary">{field.label}</label>
               <input
-                type={field.type}
+               type="text"
                 className="form-control shadow-sm"
                 placeholder={hackathon.name}
-                name="Project Name"
-                value={formData.status}
+                name="name"
+                value={formData.name}
                 onChange={handleChange}
                 required
                 style={{

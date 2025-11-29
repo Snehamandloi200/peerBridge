@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   profileLink: { type: String },
   year: { type: String },
+  address: { type: String },
   semester: { type: String },
 });
 

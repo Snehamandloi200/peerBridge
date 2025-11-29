@@ -11,7 +11,7 @@ function Signup() {
     email: "",
     password: "",
     profileLink: "",
-    address: "",
+     address: "",    
     year: "",
     semester: "",
   });
@@ -23,40 +23,42 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.post(
-      "http://localhost:8080/signup",
-      formData,
-      { headers: { "Content-Type": "application/json" } }
-    );
 
-    if (response.data.token) {
-      localStorage.setItem("token", response.data.token);
-      alert("Signup Successful!");
-      navigate("/sell");
-    } else {
-      alert("Signup failed.");
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/signup",
+        formData,
+        { headers: { "Content-Type": "application/json" } }
+      );
+
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+        alert("Signup Successful!");
+        navigate("/sell");
+      }
+    } catch (err) {
+      console.error("Signup Error:", err.response?.data || err.message);
+      alert(err.response?.data?.message || "Signup failed. Check console.");
     }
   };
 
   return (
-     <div className="signup-wrapper d-flex justify-content-center align-items-start">
-
-      <div 
+    <div className="signup-wrapper d-flex justify-content-center align-items-start">
+      <div
         className="card signup-card shadow-lg p-4"
         style={{
           width: "100%",
           maxWidth: "520px",
           borderRadius: "20px",
-        
+
           animation: "slideUp 0.8s ease, fadeIn 1s ease",
         }}
       >
         <h2 className="text-center mb-3 fw-bold" style={{ color: "#1565c0" }}>
-         Create Your Account
+          Create Your Account
         </h2>
 
         <form onSubmit={handleSubmit}>
-
           {/* Full Name */}
           <div className="mb-3">
             <label className="form-label">Full Name</label>
@@ -68,7 +70,7 @@ function Signup() {
               value={formData.username}
               onChange={handleChange}
               required
-               style={{
+              style={{
                 borderRadius: "12px",
               }}
             />
@@ -87,7 +89,7 @@ function Signup() {
               minLength={12}
               maxLength={12}
               required
-               style={{
+              style={{
                 borderRadius: "12px",
               }}
             />
@@ -104,7 +106,7 @@ function Signup() {
               value={formData.email}
               onChange={handleChange}
               required
-               style={{
+              style={{
                 borderRadius: "12px",
               }}
             />
@@ -122,7 +124,7 @@ function Signup() {
               onChange={handleChange}
               minLength={6}
               required
-               style={{
+              style={{
                 borderRadius: "12px",
               }}
             />
@@ -138,7 +140,7 @@ function Signup() {
               name="profileLink"
               value={formData.profileLink}
               onChange={handleChange}
-               style={{
+              style={{
                 borderRadius: "12px",
               }}
             />
@@ -154,7 +156,7 @@ function Signup() {
               name="address"
               value={formData.address}
               onChange={handleChange}
-               style={{
+              style={{
                 borderRadius: "12px",
               }}
             />
@@ -168,17 +170,13 @@ function Signup() {
               className="form-control bg-light"
               value="Jawaharlal Institute of Technology, Borawan"
               readOnly
-               style={{
+              style={{
                 borderRadius: "12px",
               }}
             />
           </div>
 
-          {/* City */}
-          <div className="mb-3">
-            <label className="form-label">City</label>
-            <input type="text" className="form-control" />
-          </div>
+       
 
           {/* Year */}
           <div className="mb-3">
@@ -188,7 +186,7 @@ function Signup() {
               name="year"
               value={formData.year}
               onChange={handleChange}
-               style={{
+              style={{
                 borderRadius: "12px",
               }}
               required
@@ -210,7 +208,7 @@ function Signup() {
               name="semester"
               value={formData.semester}
               onChange={handleChange}
-               style={{
+              style={{
                 borderRadius: "12px",
               }}
             />
@@ -228,13 +226,18 @@ function Signup() {
 
           {/* Button */}
           <div className="col-12">
-            <button type="submit" className="btn w-100 fw-semibold btn-lg mt-2"
-            style={{
-              background: "linear-gradient(135deg, #42a5f5, #64b5f6)",
-              color: "white",
-              borderRadius: "12px",
-              boxShadow: "0 6px 20px rgba(66,165,245,0.4)",
-            }}>Sign Up</button>
+            <button
+              type="submit"
+              className="btn w-100 fw-semibold btn-lg mt-2"
+              style={{
+                background: "linear-gradient(135deg, #42a5f5, #64b5f6)",
+                color: "white",
+                borderRadius: "12px",
+                boxShadow: "0 6px 20px rgba(66,165,245,0.4)",
+              }}
+            >
+              Sign Up
+            </button>
           </div>
         </form>
       </div>
@@ -242,4 +245,4 @@ function Signup() {
   );
 }
 
-export default Signup; 
+export default Signup;

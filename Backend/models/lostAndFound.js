@@ -20,6 +20,9 @@ const lostAndFoundSchema=new Schema({
         type : Number,
     },
     image:String,
+    creator:{
+        type : String,
+    },
       owner:{
         type: Schema.Types.ObjectId,
         ref: "User"

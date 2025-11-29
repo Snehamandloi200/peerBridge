@@ -77,7 +77,7 @@ app.get("/allHackathons", isLoggedIn, async (req, res) => {
 // ========== GET BY ID ==========
 app.get("/hackathon/:id", async (req, res) => {
   try {
-    const hackathon = await Hackathon.findById(req.params.id);
+    const hackathon = await Hackathon.findById(req.params.id).populate("owner","name email");
     if (!hackathon)
       return res.status(404).json({ message: "Hackathon not found" });
     res.status(200).json(hackathon);
@@ -113,7 +113,7 @@ app.get("/lostandfound/:id", async (req, res) => {
 // SIGNUP
 app.post("/signup", async (req, res) => {
   try {
-    const { name, email, password, enroll, year, semester, profileLink } =
+    const { name, email, password, enroll, year, semester,address, profileLink } =
       req.body;
 
     const existingUser = await User.findOne({ email });
@@ -126,6 +126,7 @@ app.post("/signup", async (req, res) => {
       password,
       enroll,
       year,
+      address,
       semester,
       profileLink,
     });
@@ -178,7 +179,7 @@ app.post("/addsell", upload.single("image"), async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decoded.id;
 
-    const { title, price, category, location, description, contact } =
+    const { title, price, category, location, description, contact,gmail,creator } =
       req.body;
 
     const imageUrl = req.file?.path;
@@ -191,7 +192,9 @@ app.post("/addsell", upload.single("image"), async (req, res) => {
       location,
       description,
       contact,
+      gmail,
       image: imageUrl,
+      creator,
       owner: userId,
     });
 
@@ -213,7 +216,7 @@ app.post("/addlostandfound", upload.single("image"), async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decoded.id;
 
-    const { status, itemName, location, description, contact } = req.body;
+    const { status, itemName, location, description, contact,creator } = req.body;
 
     const imageUrl = req.file?.path;
     if (!imageUrl) return res.status(400).json({ message: "Image missing" });
@@ -224,7 +227,9 @@ app.post("/addlostandfound", upload.single("image"), async (req, res) => {
       contact,
       location,
       description,
+      contact,
       image: imageUrl,
+      creator,
       owner: userId,
     });
 
@@ -246,7 +251,7 @@ app.post("/addhackathon", async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decoded.id;
 
-    const { project, name, skills, neededmembers, description, email, linkedin } =
+    const { project, name, skills, neededmembers, description, email, linkedin,creator } =
       req.body;
 
     const newHackathon = new Hackathon({
@@ -257,6 +262,7 @@ app.post("/addhackathon", async (req, res) => {
       description,
       email,
       linkedin,
+      creator,
       owner: userId,
     });
 
@@ -288,9 +294,7 @@ app.delete("/sell/:id", async (req, res) => {
   }
 });
 
-// =====================================================
-// ================== EDIT SELL ========================
-// =====================================================
+
 app.put("/selledit/:id", upload.single("image"), async (req, res) => {
   try {
     const sell = await Sell.findById(req.params.id);
@@ -332,6 +336,127 @@ app.delete("/lostandfound/:id", async (req, res) => {
     res.status(500).json({ message: "Error deleting" });
   }
 });
+
+app.put("/lostandfoundedit/:id",upload.single("image"),async(req,res)=>{
+   
+   try {
+    const { id } = req.params;
+    const lostandfound = await LostAndFound.findById(id);
+
+    if (!lostandfound) {
+      return res.status(404).json({ error: "Item not found" });
+    }
+
+    const imageUrl = req.file ? req.file.path : lostandfound.image; 
+    lostandfound.title = req.body.title || lostandfound.title;
+    lostandfound.price = req.body.price || lostandfound.price;
+    lostandfound.category = req.body.category || lostandfound.category;
+    lostandfound.location = req.body.location || lostandfound.location;
+    lostandfound.description = req.body.description || lostandfound.description;
+    lostandfound.image = imageUrl;
+
+    await lostandfound.save();
+
+    res.json({ message: "Item updated successfully", lostandfound });
+  } catch (error) {
+    console.error("Error updating item:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+
+app.delete("/hackathon/:id", async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ message: "No token provided" });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const hackathon = await Hackathon.findById(req.params.id);
+    if (!hackathon) return res.status(404).json({ message: "Item not found" });
+
+    if (hackathon.owner.toString() !== decoded.id)
+      return res.status(403).json({ message: "Unauthorized action" });
+
+    await Hackathon.findByIdAndDelete(req.params.id);
+    res.json({ message: "Item deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to delete item" });
+  }
+});
+
+
+app.put("/hackathonedit/:id",async(req,res)=>{
+   
+   try {
+    const { id } = req.params;
+    const hackathon = await Hackathon.findById(id);
+
+    if (!hackathon) {
+      return res.status(404).json({ error: "Item not found" });
+    } 
+    hackathon.name = req.body.name || hackathon.name;
+    hackathon.project = req.body.project || hackathon.project;
+    hackathon.neededmembers = req.body.neededmembers || hackathon.neededmembers;
+   hackathon.skills = req.body.skills || hackathon.skills;
+    hackathon.description = req.body.description || hackathon.description;
+   
+    await hackathon.save();
+
+    res.json({ message: "Item updated successfully", hackathon });
+  } catch (error) {
+    console.error("Error updating item:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+
+app.get("/profile",isLoggedIn, async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ message: "No token provided" });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;  
+    const user = await User.findById(userId).select("-password");
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching profile", error });
+  }
+});
+
+
+app.put("/profileedit",async(req,res)=>{
+   
+   try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ message: "No token provided" });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;  
+    const user = await User.findById(userId).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ error: "Item not found" });
+    } 
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.enroll = req.body.enroll || user.enroll;
+   user.year = req.body.year || user.year ;
+    user.semester = req.body.semester || user.semester;
+    user.address = req.body.address || user.address;
+    user.profileLink = req.body.profileLink || user.profileLink;
+
+   
+    await user.save();
+
+    res.json({ message: "Item updated successfully", user });
+  } catch (error) {
+    console.error("Error updating item:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 
 // ------------------- START SERVER --------------------
 app.listen(8080, () => {

@@ -1,8 +1,35 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const Profile = () => {
- 
+
+  const [user, setUser] = useState({});
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("Please login first!");
+      navigate("/login");
+      return;
+    }
+
+    axios
+      .get("http://localhost:8080/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => setUser(res.data))
+      .catch((err) => {
+        console.error("Error fetching data:", err);
+
+        if (err.response && err.response.status === 401) {
+          alert("Session Expired! Login again.");
+          navigate("/login");
+        }
+      });
+  }, [navigate]);
 
   return (
     <div className="container py-5" style={{ maxWidth: "900px" }}>
@@ -15,7 +42,7 @@ const Profile = () => {
           <h2 className="fw-bold" style={{ color: "#0d47a1" }}>My Profile</h2>
 
           <Link to="/profile/edit" className="btn btn-primary">
-            ✏️ Edit Profile
+            Edit Profile
           </Link>
         </div>
 
@@ -36,15 +63,19 @@ const Profile = () => {
           <div className="col-md-8">
             <div className="p-3 bg-light rounded" style={{ borderRadius: "10px" }}>
               <h5 className="fw-semibold mb-3">Personal Details</h5>
-
+             <p><strong>Name:</strong> {user.name}</p>
               <p><strong>Enrollment:</strong> {user.enroll}</p>
               <p><strong>Year:</strong> {user.year}</p>
               <p><strong>Semester:</strong> {user.semester}</p>
               <p><strong>Address:</strong> {user.address}</p>
 
               <p>
-                <strong>LinkedIn:</strong>{" "}
-                <a href={user.profileLink} target="_blank" rel="noopener noreferrer">
+                <strong>LinkedIn:</strong>{""}
+                <a
+                  href={user.profileLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Visit Profile
                 </a>
               </p>

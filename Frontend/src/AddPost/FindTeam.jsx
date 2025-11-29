@@ -11,10 +11,12 @@ function FindTeam() {
     project: "",
     skills: "",
     description: "",
+    linkedin: "",
+    creator: "",
     date: "",
   });
 
-  // 🚀 NEW: Disable submit button after first click
+  
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -28,7 +30,7 @@ function FindTeam() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (loading) return; // ⛔ Prevent double submit
+    if (loading) return; 
     setLoading(true);
 
     try {
@@ -58,7 +60,7 @@ function FindTeam() {
         alert("Something went wrong while submitting the form.");
       }
     } finally {
-      setLoading(false); // enable button again if error
+      setLoading(false); 
     }
   };
 
@@ -175,6 +177,33 @@ function FindTeam() {
               name="skills"
               value={formData.skills}
               onChange={handleChange}
+            />
+          </div>
+
+           <div className="col-12">
+            <label className="form-label fw-semibold">Owner</label>
+            <input
+              type="text"
+              className="form-control shadow-sm"
+              placeholder="React, Python, UI Design..."
+              name="creator"
+              value={formData.creator}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="col-12">
+            <label className="form-label fw-semibold">LinkedIn Profile URL</label>
+            <input
+              type="url"
+              className="form-control shadow-sm"
+              placeholder="https://www.linkedin.com/in/yourprofile"
+              name="linkedin"
+              value={formData.linkedin}
+              onChange={handleChange}
+              required
+              pattern="https?://(www\.)?linkedin\.com/.*"
+              style={{ borderRadius: "10px", border: "1px solid #ced4da" }}
             />
           </div>
 

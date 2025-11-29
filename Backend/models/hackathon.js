@@ -27,10 +27,14 @@ const hackathonSchema=new Schema({
     linkedin:{
         type : String,
     },
+    creator:{
+        type : String,
+    },
 
      owner:{
         type: Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true,
     },
     
 });
