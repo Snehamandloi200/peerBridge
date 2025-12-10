@@ -1,7 +1,7 @@
 .login-wrapper {
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(135deg, #f8faff, #e9f3ff);
+  background: linear-gradient(135deg, #0d3140, #1b3c65);
   background-size: cover;
   background-repeat: no-repeat;
   padding: 20px;
@@ -9,5 +9,5 @@
 
 .login-card {
   backdrop-filter: blur(8px);
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 252, 252, 0.9);
 }

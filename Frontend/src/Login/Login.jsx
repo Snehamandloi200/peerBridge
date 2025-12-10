@@ -44,10 +44,10 @@ function Login() {
           animation: "slideUp 0.8s ease, fadeIn 1s ease",
         }}
       >
-        <h2 className="text-center mb-3 fw-bold" style={{ color: "#1565c0" }}>
+        <h2 className="text-center mb-3 fw-bold" style={{ color: "#bc480aff" }}>
           Welcome Back 
         </h2>
-        <p className="text-center text-muted mb-4" style={{ fontSize: "0.9rem" }}>
+        <p className="text-center text-muted mb-4" style={{ fontSize: "0.9rem", color: "#ffffffff" }}>
           Login to continue your journey
         </p>
 
@@ -91,10 +91,10 @@ function Login() {
             type="submit"
             className="btn w-100 fw-semibold btn-lg mt-2"
             style={{
-              background: "linear-gradient(135deg, #42a5f5, #64b5f6)",
+              background: "linear-gradient(135deg, #0d3140, #1b3c65)",
               color: "white",
               borderRadius: "12px",
-              boxShadow: "0 6px 20px rgba(66,165,245,0.4)",
+              boxShadow: "0 6px 20px rgba(0, 0, 0, 0.4)",
             }}
           >
             Login
@@ -107,7 +107,7 @@ function Login() {
           <span
             onClick={() => navigate("/signup")}
             style={{
-              color: "#1976d2",
+              color: "#e4521dff",
               fontWeight: "600",
               cursor: "pointer",
               marginLeft: "5px",

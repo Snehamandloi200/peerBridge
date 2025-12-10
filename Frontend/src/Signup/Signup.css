@@ -2,7 +2,7 @@
 .signup-wrapper {
   min-height: 100vh;
   width: 100vw;
-  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  background: linear-gradient(135deg, #0d3140, #1b3c65) !important;
   background-size: cover;
   background-repeat: no-repeat;
   padding-top: 120px !important;   /* ✔ Proper space from top */

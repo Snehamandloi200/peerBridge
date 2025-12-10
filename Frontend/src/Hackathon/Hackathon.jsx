@@ -39,7 +39,7 @@ function Hackathon() {
         className="text-center mb-4 mt-5"
         style={{
           fontWeight: "700",
-          color: "#2c3e50",
+          color: "#0e4882ff",
           letterSpacing: "1px",
           textTransform: "uppercase",
         }}
@@ -51,7 +51,17 @@ function Hackathon() {
       <div className="container">
         <div className="d-flex justify-content-end justify-content-md-end justify-content-sm-center mb-4">
           <Link to="/addpost">
-            <button className="btn btn-secondary btn-md shadow-lg pulse">
+            <button className="btn btn-secondary btn-md shadow-lg pulse" style={{ backgroundColor: "#015b6cff",
+      color: "white",
+      border: "none",
+        // bigger text
+      padding: "18px 45px",
+      height: "50px",
+      width:"140px",
+      fontSize:"1.2rem",
+      // bigger button
+      borderRadius: "18px",    // smoother edges
+      fontWeight: "600", }}>
               + Add New Post
             </button>
           </Link>

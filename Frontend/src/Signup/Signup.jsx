@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./signup.css"; // <-- NEW CSS FILE
+import "./Signup.css"; // <-- NEW CSS FILE
 
 function Signup() {
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ function Signup() {
           animation: "slideUp 0.8s ease, fadeIn 1s ease",
         }}
       >
-        <h2 className="text-center mb-3 fw-bold" style={{ color: "#1565c0" }}>
+        <h2 className="text-center mb-3 fw-bold"  style={{ color: "#d8550fff" }}>
           Create Your Account
         </h2>
 
@@ -230,11 +230,11 @@ function Signup() {
               type="submit"
               className="btn w-100 fw-semibold btn-lg mt-2"
               style={{
-                background: "linear-gradient(135deg, #42a5f5, #64b5f6)",
-                color: "white",
-                borderRadius: "12px",
-                boxShadow: "0 6px 20px rgba(66,165,245,0.4)",
-              }}
+              background: "linear-gradient(135deg, #0d3140, #1b3c65)",
+              color: "white",
+              borderRadius: "12px",
+              boxShadow: "0 6px 20px rgba(0, 0, 0, 0.4)",
+            }}
             >
               Sign Up
             </button>

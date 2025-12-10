@@ -49,7 +49,17 @@ function LostAndFound() {
       <div className="container mb-4">
         <div className="d-flex justify-content-sm-center justify-content-md-end">
           <Link to="/addpost" className="text-decoration-none">
-            <button className="btn btn-secondary shadow-sm">
+            <button className="btn btn-secondary shadow-sm" style={{ backgroundColor: "#015b6cff",
+      color: "white",
+      border: "none",
+        // bigger text
+      padding: "18px 45px",
+      height: "50px",
+      width:"140px",
+      fontSize:"1.2rem",
+      // bigger button
+      borderRadius: "18px",    // smoother edges
+      fontWeight: "600", }}>
               + Add New Post
             </button>
           </Link>

@@ -2,7 +2,8 @@
 
 
 .hero-section {
-  background: linear-gradient(to bottom right, #f8faff, #e9f3ff);
+  background: linear-gradient(to bottom right, #051116, #316ab1);
+  /* background: linear-gradient(to bottom right, #13342d, #03032a); */
 }
 
 
@@ -12,11 +13,34 @@
 
 .hero-section p {
   font-size: 1.1rem;
-  color: #555;
+  color: #000000;
+  /* color: #555; */
 }
 
 
 .btn-primary:hover {
   transform: scale(1.05);
   transition: all 0.3s ease-in-out;
+}
+
+.text-primary {
+  color: #a19191; 
+}
+
+.custom-btn {
+  background-color: #c15c22ff;
+  color: white;
+  border: none;
+  padding: 18px 50px;
+  font-size: 2rem;      /* NOW font size will increase */
+  font-weight: 600;
+  border-radius: 14px;
+  transition: 0.3s ease;  /* smooth hover */
+}
+
+/* Hover effect */
+.custom-btn:hover {
+  background-color: #a3491b;   /* darker shade */
+  transform: translateY(-3px); /* small lift */
+  box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.25);
 }

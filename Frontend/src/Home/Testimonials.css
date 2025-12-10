@@ -1,0 +1,52 @@
+.testimonial-container {
+  width: 100%;
+  overflow: hidden;
+  background: #1d3a59; 
+  padding: 40px 0;
+}
+
+.testimonial-slider {
+  display: flex;
+  gap: 20px;
+  animation: scroll 20s linear infinite;
+}
+
+.testimonial-card {
+  min-width: 300px;
+  background: white; /* White cards for contrast */
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: #333; /* Dark text inside cards */
+}
+
+.review-text {
+  font-size: 1rem;
+  color: #333;
+}
+
+.review-name {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #284361; /* Dark blue matching background for subtle look */
+}
+
+.review-details {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 5px;
+  font-style: italic;
+}
+
+.testimonial-container h2 {
+  color: #ffffff; /* Heading text in white */
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

@@ -3,16 +3,18 @@ import Hero from './Hero';
 import YourNeed from './YourNeed';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
-function Home() {
-    return ( 
-        <> 
-      
-        <Hero/>
-        <YourNeed/>
-     
+import Testimonials from "./Testimonials";
 
+function Home() {
+    return (
+        <>
+          
+            <Hero />
+            <YourNeed />
+            <Testimonials />
+            
         </>
-     );
+    );
 }
 
 export default Home;

@@ -1,42 +1,65 @@
 import React from "react";
-import "./Team.css"; // Create this CSS file
+import "./Team.css";
 
 function Team() {
-  const teamMembers = [
+  const members = [
     {
       name: "Sneha Mandloi",
-      role: "Lead",
-      img: "data:image/png;base64,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...",
-      desc: "A passionate leader with excellent technical and organizational skills.",
-      linkedin: "#",
-      instagram: "#",
+      role: "Frontend Developer || 3rd Year CSE || Focused on improving frontend design.",
+      photo: "/image/snehaimage.jpg",
+      linkedin: "https://www.linkedin.com/in/sneha-mandloi-1b950830b/",
+      github: "https://github.com/Snehamandloi200",
     },
     {
-      name: "Renuka kushwah",
-      role: " Co-Lead",
-      img: "data:image/png;base64,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...",
-      desc: "A passionate leader with excellent technical and organizational skills.",
-      linkedin: "#",
-      instagram: "#",
+      name: "Renuka Kushwah",
+      role: "Backend Developer ||  3rd Year CSE || Ensures smooth and secure backend flow",
+      photo: "/image/renukaimage.jpg",
+      linkedin: "https://www.linkedin.com/in/renuka-kushwah-04b34a312?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      github: "https://github.com/renuka-2005",
     },
   ];
 
   return (
-    <div className="team-container">
-      <h1 className="text-center mb-5">Meet Our Team</h1>
+    <div className="team-container " style={{background: "linear-gradient(135deg, #1a1d2cff, #0b4461ff"}}>
+      <h2 className="fw-bold text-center mb-4" style={{ color: "#ffffffff" }}>
+        Meet Our Team 👥
+      </h2>
+
       <div className="row justify-content-center">
-        {teamMembers.map((member, index) => (
-          <div className="col-md-4 col-sm-6 mb-4" key={index}>
+        {members.map((m, index) => (
+          <div key={index} className="col-md-5 p-3">
+            
             <div className="team-card">
-              <img src={member.img} alt={member.name} className="team-img" />
-              <h4>{member.name}</h4>
-              <p className="team-role">{member.role}</p>
-              <p className="team-desc">{member.desc}</p>
-              <div className="social-links">
-                <a href={member.linkedin}>LinkedIn</a> |{" "}
-                <a href={member.instagram}>Instagram</a>
+
+              <img src={m.photo} alt={m.name} className="team-img" />
+
+              <h4 className="fw-bold" style={{ color: "#105c7aff" }}>
+                {m.name}
+              </h4>
+
+              <p className="text-muted" >{m.role}</p>
+
+              {/* Social Icons */}
+              <div className="d-flex justify-content-center gap-3 mt-3">
+
+                {/* LinkedIn */}
+                <a href={m.linkedin} target="_blank" className="social-icon">
+                  <svg width="28" height="28" fill="#0c5297ff" viewBox="0 0 24 24">
+                    <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM0.5 8h4v16h-4V8zm7.5 0h3.8v2.2h.1c.5-.9 1.7-2.2 3.5-2.2 3.7 0 4.4 2.4 4.4 5.5V24h-4v-9.3c0-2.2-.1-5-3-5-3 0-3.4 2.3-3.4 4.8V24h-4V8z"/>
+                  </svg>
+                </a>
+
+                {/* GitHub */}
+                <a href={m.github} target="_blank" className="social-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="black">
+                    <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.94.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.38-3.87-1.38-.53-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.38.97.1-.76.4-1.27.73-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.18-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a10.9 10.9 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.17 1.83 1.17 3.09 0 4.43-2.69 5.41-5.26 5.7.41.36.78 1.07.78 2.18v3.23c0 .31.21.67.79.56A10.99 10.99 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/>
+                  </svg>
+                </a>
+
               </div>
+
             </div>
+
           </div>
         ))}
       </div>
