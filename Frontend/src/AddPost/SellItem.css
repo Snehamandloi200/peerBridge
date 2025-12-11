@@ -11,17 +11,17 @@
   grid-column: 1 / 2; 
 }
 /* Fix: Ensures the container takes up the full viewport height and width */
-.sellitem-section {
+/* .sellitem-section {
   min-height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   /* Optional: Remove any external margin that might be pushing it down */
-  margin: 0; 
+  /* margin: 0; 
   background: linear-gradient(135deg, #e3f2fd, #bbdefb);
   padding: 20px; /* Provides some breathing room */
-}
+/* } */  */
 
 
 /* Card: This keeps your form centered and readable on large screens */
@@ -44,7 +44,7 @@
 
 /* Title */
 .sellitem-title {
-  color: #1565c0;
+  color: #0e4882ff;
   font-weight: 700;
 }
 
@@ -79,7 +79,7 @@
   font-size: 18px;
   font-weight: 600;
   border-radius: 14px;
-  background: linear-gradient(135deg, #42a5f5, #5aa9fa);
+  background: #0e4882ff;
   box-shadow: 0 6px 20px rgba(66, 165, 245, 0.4);
   transition: 0.3s;
 }

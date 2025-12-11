@@ -14,7 +14,7 @@ function Addpost() {
         minHeight: "100vh",
         paddingTop: "100px",
         // This background now correctly stretches full width because of 'w-100'
-        background: "linear-gradient(135deg, #e0f7fa, #e3f2fd)",
+        background: "linear-gradient(135deg, #468ae9ff, #e3f2fd)",
       }}
     >
      
@@ -48,10 +48,10 @@ function Addpost() {
                 borderRadius: "50px",
                 margin: "8px",
                 fontSize: "1.1rem",
-                color: activeForm === tab.key ? "#fff" : "#0d6efd",
+                color: activeForm === tab.key ? "#fff" : "#0e4882ff",
                 background:
                   activeForm === tab.key
-                    ? "linear-gradient(135deg, #0d6efd, #007bff)"
+                    ? "#0e4882ff"
                     : "transparent",
                 transition: "all 0.3s ease",
                 boxShadow:
@@ -73,23 +73,12 @@ function Addpost() {
       </ul>
 
       {/* Active Form */}
-      <div
-        className="form-container w-100"
-        style={{
-          // Optional: Increase max-width for better use of space on big monitors
-          maxWidth: "1000px", 
-          padding: "30px",
-          borderRadius: "20px",
-          background: "#ffffff",
-          boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
-          transition: "all 0.4s ease",
-        }}
-      >
+    
         {activeForm === "sell" && <SellItem />}
         {activeForm === "lost" && <LostAndFound />}
         {activeForm === "team" && <FindTeam />}
       </div>
-    </div>
+    
   );
 }
 

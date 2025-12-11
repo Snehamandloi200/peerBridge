@@ -6,7 +6,7 @@ import "./Signup.css"; // <-- NEW CSS FILE
 function Signup() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     enroll: "",
     email: "",
     password: "",
@@ -54,7 +54,7 @@ function Signup() {
           animation: "slideUp 0.8s ease, fadeIn 1s ease",
         }}
       >
-        <h2 className="text-center mb-3 fw-bold"  style={{ color: "#d8550fff" }}>
+        <h2 className="text-center mb-3 fw-bold"  style={{ color: "#bc480aff" }}>
           Create Your Account
         </h2>
 
@@ -66,8 +66,8 @@ function Signup() {
               type="text"
               className="form-control"
               placeholder="Enter your full name"
-              name="username"
-              value={formData.username}
+              name="name"
+              value={formData.name}
               onChange={handleChange}
               required
               style={{

@@ -61,56 +61,49 @@ function LostAndFoundShow() {
 
   return (
     <div
-      className="d-flex justify-content-center align-items-center"
+      className="container d-flex justify-content-center align-items-center"
       style={{
         minHeight: "100vh",
-        width: "100%",
-        padding: "20px",
-        background: "linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)",
+        padding: "30px",
+        // background: "linear-gradient(135deg, #fdfbfb, #ebedee)",
       }}
     >
       <div
-        className="card shadow-lg border-0 p-4 mt-5"
+        className="d-flex align-items-center gap-4 flex-wrap"
         style={{
           width: "100%",
-          maxWidth: "500px",
-          borderRadius: "20px",
-          background: "rgba(255, 255, 255, 0.95)",
-          backdropFilter: "blur(10px)",
-          animation: "fadeInUp 0.8s ease",
-          boxShadow: "0 10px 30px rgba(0, 0, 0, 0.15)",
+          maxWidth: "900px",
         }}
       >
-        {/* Image Section */}
+        {/* LEFT SIDE IMAGE */}
         <div
           style={{
-            overflow: "hidden",
-            borderRadius: "15px",
-            marginBottom: "20px",
+            flex: 1,
+            minWidth: "280px",
+            textAlign: "center",
           }}
         >
           <img
             src={item.image}
             alt={item.itemName}
-            className="img-fluid"
             style={{
               width: "100%",
-              maxHeight: "250px",
+              maxHeight: "350px",
               objectFit: "cover",
               borderRadius: "15px",
-              transition: "transform 0.5s ease",
+              // boxShadow: "0 10px 20px rgba(0,0,0,0.15)",
             }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.transform = "scale(1.05)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.transform = "scale(1)")
-            }
           />
         </div>
 
-        {/* Details Section */}
-        <div className="text-center">
+        {/* RIGHT SIDE CONTENT */}
+        <div
+          style={{
+            flex: 1,
+            minWidth: "280px",
+            marginLeft: "100px"
+          }}
+        >
           <span
             className={`badge ${
               item.status.toLowerCase() === "lost" ? "bg-danger" : "bg-success"
@@ -124,29 +117,25 @@ function LostAndFoundShow() {
             {item.status}
           </span>
 
-          <h3 className="fw-bold mb-2" style={{ color: "#0d47a1" }}>
+          <h2 className="fw-bold mb-2" style={{ color: "#0d47a1" }}>
             {item.itemName}
-          </h3>
+          </h2>
 
-          <h5 className="text-muted mb-2">📍 {item.location}</h5>
+          <h5 className="text-muted mb-2"> {item.location}</h5>
 
-          <p
-            className="text-secondary px-3"
-            style={{ fontSize: "1rem", lineHeight: "1.6" }}
-          >
+          <p className="text-secondary" style={{ lineHeight: "1.6" }}>
             {item.description}
           </p>
 
-          <p style={{ color: "#555", lineHeight: "1.6" }}>
-            Owned By: {item.creator}
-          </p>
+          <p className="description">Owned by: {item.owner.name}</p>
+
 
           <div
-            className="card-footer border-0 bg-transparent mt-3"
             style={{
               fontSize: "1rem",
-              color: "#1565c0",
+              color: "#0d47a1",
               fontWeight: "600",
+              marginTop: "15px",
             }}
           >
             Contact Number:{" "}
@@ -155,19 +144,15 @@ function LostAndFoundShow() {
             </span>
           </div>
 
-          {/* Buttons Section */}
-          <div
-            className="mt-4 d-flex flex-wrap justify-content-center gap-3"
-            style={{ width: "100%" }}
-          >
+          {/* BUTTONS */}
+          <div className="d-flex flex-wrap gap-3 mt-4">
             <button
               onClick={() => navigate(-1)}
               className="btn px-4 fw-semibold"
               style={{
-                background: "linear-gradient(135deg, #42a5f5, #1e88e5)",
+                background: "linear-gradient(135deg, #064171ff, #043865ff)",
                 color: "white",
                 borderRadius: "12px",
-                fontSize: "1rem",
               }}
             >
               Back
@@ -203,39 +188,6 @@ function LostAndFoundShow() {
           </div>
         </div>
       </div>
-
-      {/* CSS Animations + Media Queries */}
-      <style>
-        {`
-          @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-
-          /* RESPONSIVE DESIGN */
-          @media (max-width: 768px) {
-            .card {
-              padding: 20px !important;
-            }
-            img {
-              max-height: 250px !important;
-            }
-            h3 { font-size: 1.4rem !important; }
-            h5 { font-size: 1rem !important; }
-            p { font-size: 0.95rem !important; }
-          }
-
-          @media (max-width: 480px) {
-            .btn {
-              width: 100% !important;
-            }
-            h3 { font-size: 1.2rem !important; }
-            img {
-              max-height: 200px !important;
-            }
-          }
-        `}
-      </style>
     </div>
   );
 }

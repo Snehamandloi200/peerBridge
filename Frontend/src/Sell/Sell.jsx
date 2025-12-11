@@ -116,7 +116,7 @@ function Sell() {
                         <h5 className="fw-semibold text-dark">{item.title}</h5>
                         <p className="text-muted small mb-2">
                           {item.description.length > 60
-                            ? item.description.slice(0, 60) + "..."
+                            ? item.description.slice(0, 30) + "..."
                             : item.description}
                         </p>
                       </div>

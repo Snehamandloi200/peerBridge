@@ -62,14 +62,14 @@ function HackathonShow() {
   };
 
   return (
-    <div
-      className="container-fluid d-flex justify-content-center align-items-center"
-      style={{
-        minHeight: "100vh",
-        padding: "20px",
-        background: "linear-gradient(135deg, #fdfbfb, #ebedee)",
-      }}
-    >
+   <div
+  className="container-fluid d-flex justify-content-center align-items-center page-bg"
+  style={{
+    minHeight: "100vh",
+    padding: "20px",
+  }}
+>
+
       <div className="card-wrapper">
         <div
           className="card text-center shadow-lg p-4 responsive-card"
@@ -90,7 +90,7 @@ function HackathonShow() {
 
           <p className="description">{hackathon.description}</p>
 
-          <p className="description">Owned by: {hackathon.creator}</p>
+          <p className="description">Owned by: {hackathon.owner.name}</p>
 
           <div >
             <span className="contact-text">
@@ -128,101 +128,105 @@ function HackathonShow() {
       </div>
 
       {/* Responsive CSS */}
-      <style>
-        {`
-          .card-wrapper {
-            width: 100%;
-            max-width: 550px;
-          }
+     <style>
+  {`
+    .card-wrapper {
+      width: 100%;
+      max-width: 650px;
+    }
 
-          .responsive-card {
-            transition: transform .4s, box-shadow .4s;
-          }
+    /* Card hidden, background removed */
+    .responsive-card {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+    }
 
-          .responsive-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-          }
+    /* Page background same as card */
+    .page-bg {
+      background: linear-gradient(135deg, #fdfbfb, #ebedee) !important;
+    }
 
-          .title-text {
-            font-weight: 700;
-            font-size: 1.8rem;
-            color: #34495e;
-          }
+    .title-text {
+      font-weight: 700;
+      font-size: 1.9rem;
+      color: #34495e;
+      text-align: center;
+    }
 
-          .team-text {
-            color: #7f8c8d;
-            font-weight: 600;
-          }
+    .team-text {
+      color: #7f8c8d;
+      font-weight: 600;
+      text-align: center;
+    }
 
-          .members-badge {
-            background: linear-gradient(90deg, #27ae60, #2ecc71);
-            font-size: 0.9rem;
-            padding: 10px 20px;
-            border-radius: 20px;
-            color: white;
-          }
+    .members-badge {
+      background: linear-gradient(90deg, #27ae60, #2ecc71);
+      font-size: 0.9rem;
+      padding: 10px 20px;
+      border-radius: 20px;
+      color: white;
+      display: block;
+      margin: 15px auto;
+      text-align: center;
+      width: fit-content;
+    }
 
-          .description {
-            color: #555;
-            line-height: 1.6;
-            font-size: 1rem;
-            margin-bottom: 15px;
-          }
+    .description {
+      color: #555;
+      line-height: 1.6;
+      font-size: 1rem;
+      margin-bottom: 15px;
+      text-align: center;
+    }
 
-          .contact-text {
-            color: #16a085;
-            font-size: 1rem;
-          }
+    .contact-text {
+      color: #16a085;
+      font-size: 1rem;
+      text-align: center;
+    }
 
-          .button-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-          }
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
 
-          .custom-btn {
-            padding: 10px 20px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            color: white;
-            min-width: 100px;
-          }
+    .custom-btn {
+      padding: 10px 24px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      min-width: 110px;
+    }
 
-          .back-btn {
-            background: linear-gradient(135deg,#42a5f5,#1e88e5);
-          }
+    .back-btn {
+      background: linear-gradient(135deg, #42a5f5, #1e88e5);
+    }
 
-          .edit-btn {
-            background: linear-gradient(135deg,#ffb74d,#f57c00);
-          }
+    .edit-btn {
+      background: linear-gradient(135deg, #ffb74d, #f57c00);
+    }
 
-          .delete-btn {
-            background: linear-gradient(135deg,#e57373,#d32f2f);
-          }
+    .delete-btn {
+      background: linear-gradient(135deg, #e57373, #d32f2f);
+    }
 
-          @media (max-width: 768px) {
-            .title-text {
-              font-size: 1.5rem;
-            }
+    @media (max-width: 768px) {
+      .title-text {
+        font-size: 1.6rem;
+      }
 
-            .description {
-              font-size: 0.95rem;
-            }
+      .custom-btn {
+        width: 100%;
+      }
+    }
+  `}
+</style>
 
-            .custom-btn {
-              width: 100%;
-            }
-          }
-
-          @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-        `}
-      </style>
     </div>
   );
 }

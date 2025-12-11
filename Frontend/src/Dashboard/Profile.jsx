@@ -31,8 +31,19 @@ const Profile = () => {
       });
   }, [navigate]);
 
+  
+
   return (
-    <div className="container py-5" style={{ maxWidth: "900px" }}>
+    <div
+      className="addpost-wrapper d-flex flex-column align-items-center w-100" 
+      style={{
+        minHeight: "100vh",
+        // paddingTop: "100px",
+        // This background now correctly stretches full width because of 'w-100'
+        background: "linear-gradient(135deg, #468ae9ff, #e3f2fd)",
+      }}
+    >
+    <div className="container py-5" style={{ maxWidth: "900px", backgroundColor: "linear-gradient(135deg, #468ae9ff, #e3f2fd)"}}>
       <div
         className="card shadow-lg border-0 p-4 mt-5"
         style={{ borderRadius: "20px" }}
@@ -41,7 +52,7 @@ const Profile = () => {
         <div className="d-flex justify-content-between align-items-center mb-4">
           <h2 className="fw-bold" style={{ color: "#0d47a1" }}>My Profile</h2>
 
-          <Link to="/profile/edit" className="btn btn-primary">
+          <Link to="/profile/edit" className="btn" style={{backgroundColor:"#0e4882ff",color:"white"}}>
             Edit Profile
           </Link>
         </div>
@@ -56,7 +67,7 @@ const Profile = () => {
               width="140"
               className="rounded-circle shadow-sm mb-3"
             />
-            <h4 className="fw-bold">{user.username}</h4>
+            <h4 className="fw-bold">{user.name}</h4>
             <p className="text-muted">{user.email}</p>
           </div>
 
@@ -85,6 +96,7 @@ const Profile = () => {
         </div>
 
       </div>
+    </div>
     </div>
   );
 };

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const ProfileEdit = () => {
   const navigate = useNavigate();
   const [data, setData] = useState({
-    username: "",
+    name: "",
     email: "",
     enroll: "",
     year: "",
@@ -67,6 +67,15 @@ const ProfileEdit = () => {
   };
 
   return (
+    <div
+      className="addpost-wrapper d-flex flex-column align-items-center w-100" 
+      style={{
+        minHeight: "100vh",
+        // paddingTop: "100px",
+        // This background now correctly stretches full width because of 'w-100'
+        background: "linear-gradient(135deg, #468ae9ff, #e3f2fd)",
+      }}
+    >
     <div className="container py-5" style={{ maxWidth: "700px" }}>
       <div
         className="card shadow-lg p-4 border-0 mt-5"
@@ -79,20 +88,20 @@ const ProfileEdit = () => {
         <form onSubmit={updateProfile} className="row">
 
           {/* Full Name */}
-          <div className="col-md-12">
+          <div className="col-md-12 mt-2">
             <label className="form-label fw-semibold">Full Name</label>
             <input
               type="text"
               className="form-control"
-              name="username"
-              value={data.username}
+              name="name"
+              value={data.name}
               onChange={handleChange}
               style={{ borderRadius: "12px" }}
             />
           </div>
 
           {/* Email */}
-          <div className="col-md-12">
+          <div className="col-md-12 mt-2">
             <label className="form-label fw-semibold">Email</label>
             <input
               type="email"
@@ -105,7 +114,7 @@ const ProfileEdit = () => {
           </div>
 
           {/* Enrollment */}
-          <div className="col-md-12">
+          <div className="col-md-12 mt-2">
             <label className="form-label fw-semibold">Enrollment</label>
             <input
               type="text"
@@ -118,7 +127,7 @@ const ProfileEdit = () => {
           </div>
 
           {/* Year */}
-          <div className="col-md-12">
+          <div className="col-md-12 mt-2">
             <label className="form-label fw-semibold">Year</label>
             <select
               className="form-select"
@@ -135,7 +144,7 @@ const ProfileEdit = () => {
           </div>
 
           {/* Semester */}
-          <div className="col-md-12">
+          <div className="col-md-12 mt-2">
             <label className="form-label fw-semibold">Semester</label>
             <input
               type="text"
@@ -148,7 +157,7 @@ const ProfileEdit = () => {
           </div>
 
           {/* Address */}
-          <div className="col-md-12">
+          <div className="col-md-12 mt-2">
             <label className="form-label fw-semibold">Address</label>
             <input
               type="text"
@@ -161,7 +170,7 @@ const ProfileEdit = () => {
           </div>
 
           {/* LinkedIn */}
-          <div className="col-md-12">
+          <div className="col-md-12 mt-2">
             <label className="form-label fw-semibold">LinkedIn Profile</label>
             <input
               type="url"
@@ -174,12 +183,12 @@ const ProfileEdit = () => {
           </div>
 
           {/* Button */}
-          <div className="col-12">
+          <div className="col-12 mt-3">
             <button
               type="submit"
               className="btn w-100 fw-semibold"
               style={{
-                background: "linear-gradient(135deg, #42a5f5, #64b5f6)",
+                background: "#1565c0",
                 color: "white",
                 borderRadius: "12px",
                 boxShadow: "0 6px 20px rgba(66,165,245,0.4)",
@@ -191,6 +200,7 @@ const ProfileEdit = () => {
 
         </form>
       </div>
+    </div>
     </div>
   );
 };

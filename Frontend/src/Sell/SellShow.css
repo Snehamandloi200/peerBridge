@@ -107,15 +107,17 @@
 }
 
 .btn-back {
-  background-color: #4b9cd3;
+  background-color: #054570 !important;
+  border-radius: 10px;
 }
 
 .btn-back:hover {
-  background-color: #3a8ac7;
+  background-color: #112433;
 }
 
 .btn-edit {
-  background-color: #f5a623;
+  background-color: #ff6600;
+   border-radius: 10px;
 }
 
 .btn-edit:hover {
@@ -158,3 +160,67 @@
     padding: 18px;
   }
 }
+
+
+.sellshow-main {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+}
+
+.sellshow-wrapper {
+  display: flex;
+  flex-direction: row;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 80%;
+  /* box-shadow: 0px 4px 15px rgba(0,0,0,0.1); */
+}
+
+.sellshow-left {
+  flex: 1;
+}
+
+.sellshow-left-img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.sellshow-right {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+}
+
+.sellshow-title {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.sellshow-description {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.sellshow-contact,
+.sellshow-price {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .sellshow-wrapper {
+    flex-direction: column;
+  }
+
+  .sellshow-left-img {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
+
+

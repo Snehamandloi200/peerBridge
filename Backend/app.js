@@ -13,6 +13,8 @@ const bcrypt = require("bcryptjs");
 const multer = require("multer");
 const { cloudinary, storage } = require("./cloudconfig");
 const upload = multer({ storage });
+const sendMail=require("./Util/mailer");
+
 
 const Sell = require("./models/sellItem");
 const LostAndFound = require("./models/lostAndFound");
@@ -88,7 +90,7 @@ app.get("/hackathon/:id", async (req, res) => {
 
 app.get("/sell/:id", async (req, res) => {
   try {
-    const sell = await Sell.findById(req.params.id);
+    const sell = await Sell.findById(req.params.id).populate("owner","name");
     if (!sell) return res.status(404).json({ message: "Item not found" });
     res.status(200).json(sell);
   } catch (error) {
@@ -98,7 +100,7 @@ app.get("/sell/:id", async (req, res) => {
 
 app.get("/lostandfound/:id", async (req, res) => {
   try {
-    const item = await LostAndFound.findById(req.params.id);
+    const item = await LostAndFound.findById(req.params.id).populate("owner","name");
     if (!item) return res.status(404).json({ message: "Item not found" });
     res.status(200).json(item);
   } catch (error) {
@@ -133,6 +135,12 @@ app.post("/signup", async (req, res) => {
 
     await newUser.save();
     const token = generateToken(newUser);
+      sendMail(
+    email,
+    "Welcome to PeerBridge",
+    `Hello Dear, thanks for signing up!`,
+    `<h3>Hello Dear,</h3><p>Thanks for signing up for our PeerBridge</p>`
+  );
 
     res.status(201).json({
       message: "User registered successfully",
@@ -161,6 +169,12 @@ app.post("/login", async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "24h" }
     );
+     sendMail(
+    email,
+    "Welcome to PeerBridge",
+    `Hello Dear, thanks for Login!`,
+    `<h3>Hello Dear,</h3><p>Thanks for Login up for our PeerBridge</p>`
+  );
 
     res.status(200).json({ message: "Login successful", token });
   } catch (error) {
@@ -168,9 +182,6 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// =====================================================
-// ================== ADD SELL ITEM ====================
-// =====================================================
 app.post("/addsell", upload.single("image"), async (req, res) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
@@ -179,7 +190,7 @@ app.post("/addsell", upload.single("image"), async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decoded.id;
 
-    const { title, price, category, location, description, contact,gmail,creator } =
+    const { title, price, category, location, description, contact,gmail } =
       req.body;
 
     const imageUrl = req.file?.path;
@@ -194,7 +205,7 @@ app.post("/addsell", upload.single("image"), async (req, res) => {
       contact,
       gmail,
       image: imageUrl,
-      creator,
+      
       owner: userId,
     });
 
@@ -216,7 +227,7 @@ app.post("/addlostandfound", upload.single("image"), async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decoded.id;
 
-    const { status, itemName, location, description, contact,creator } = req.body;
+    const { status, itemName, location, description, contact } = req.body;
 
     const imageUrl = req.file?.path;
     if (!imageUrl) return res.status(400).json({ message: "Image missing" });
@@ -228,8 +239,7 @@ app.post("/addlostandfound", upload.single("image"), async (req, res) => {
       location,
       description,
       contact,
-      image: imageUrl,
-      creator,
+      image: imageUrl, 
       owner: userId,
     });
 
@@ -251,7 +261,7 @@ app.post("/addhackathon", async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decoded.id;
 
-    const { project, name, skills, neededmembers, description, email, linkedin,creator } =
+    const { project, name, skills, neededmembers, description, email, linkedin } =
       req.body;
 
     const newHackathon = new Hackathon({
@@ -262,7 +272,6 @@ app.post("/addhackathon", async (req, res) => {
       description,
       email,
       linkedin,
-      creator,
       owner: userId,
     });
 

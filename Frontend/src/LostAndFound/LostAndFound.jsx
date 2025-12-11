@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import axios from "axios";
+import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
+import "../Sell/Sell.css";
 
 function LostAndFound() {
   const navigate = useNavigate();
@@ -27,27 +29,32 @@ function LostAndFound() {
   }, [navigate]);
 
   return (
-    <div
-      className="container-fluid py-5"
-      style={{
-        background: "linear-gradient(to right, #f8fbff, #eef2f3)",
-        minHeight: "100vh",
-      }}
-    >
+    <motion.div
+       
+         className="sell-wrapper"
+         initial={{ opacity: 0 }}
+         animate={{ opacity: 1 }}
+         transition={{ duration: 1.2, ease: "easeOut" }}
+       >
+         <div className="sell-section py-5 mt-5" style={{background:""}}>
+           <div className="sell-container px-4">
       {/* PAGE TITLE */}
-      <h2
-        className="text-center fw-bold mb-4 mt-4"
-        style={{
-          color: "#1a237e",
-          letterSpacing: "1px",
-        }}
-      >
-        Lost & Found Items
-      </h2>
-
+      <motion.div
+            className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-5 text-center text-md-start"
+            initial={{ opacity: 0, y: -40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.3 }}
+          >
+    <h1
+  className="fw-bold text-primary mb-2"
+  style={{marginLeft:"30px"}}
+>
+  Lost &  Found Items<span style={{ color: "#f97a1f" }}> on Campaus</span>
+</h1>
+ 
       {/* ADD POST BUTTON (RESPONSIVE) */}
-      <div className="container mb-4">
-        <div className="d-flex justify-content-sm-center justify-content-md-end">
+      
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
           <Link to="/addpost" className="text-decoration-none">
             <button className="btn btn-secondary shadow-sm" style={{ backgroundColor: "#015b6cff",
       color: "white",
@@ -57,15 +64,16 @@ function LostAndFound() {
       height: "50px",
       width:"140px",
       fontSize:"1.2rem",
-      // bigger button
+     marginRight:"40px",
       borderRadius: "18px",    // smoother edges
       fontWeight: "600", }}>
               + Add New Post
             </button>
           </Link>
-        </div>
-      </div>
-
+          </motion.div>
+         
+       
+ </motion.div>
       {/* ITEMS LIST */}
       <div className="container">
         <div className="row justify-content-center g-4">
@@ -90,22 +98,9 @@ function LostAndFound() {
                     overflow: "hidden",
                     transition:
                       "transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease",
-                    background: "linear-gradient(145deg, #ffffff, #e3f2fd)",
+                    background: "#ffffff",
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-10px)";
-                    e.currentTarget.style.boxShadow =
-                      "0 15px 35px rgba(0,0,0,0.2)";
-                    e.currentTarget.style.background =
-                      "linear-gradient(145deg, #e3f2fd, #bbdefb)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow =
-                      "0 8px 20px rgba(0,0,0,0.1)";
-                    e.currentTarget.style.background =
-                      "linear-gradient(145deg, #ffffff, #e3f2fd)";
-                  }}
+                  
                 >
                   {/* IMAGE */}
                   <div
@@ -119,7 +114,7 @@ function LostAndFound() {
                       alt={item.itemName}
                       style={{
                         width: "100%",
-                        height: "100%",
+                        height: "90%",
                         objectFit: "cover",
                         transition: "transform 0.5s ease",
                       }}
@@ -154,24 +149,19 @@ function LostAndFound() {
                       {item.itemName}
                     </h5>
 
-                    <h6 className="text-muted mb-2" style={{ fontSize: "0.9rem" }}>
+                    {/* <h6 className="text-muted mb-2" style={{ fontSize: "0.9rem" }}>
                       {item.location || "Unknown location"}
-                    </h6>
+                    </h6> */}
 
-                    <p
-                      className="text-secondary"
-                      style={{
-                        fontSize: "0.9rem",
-                        minHeight: "60px",
-                        overflow: "hidden",
-                      }}
-                    >
-                      {item.description}
-                    </p>
+                  <p className="text-muted small mb-2">
+                          {item.description.length > 60
+                            ? item.description.slice(0, 30) + "..."
+                            : item.description}
+                        </p>
                   </div>
 
                   {/* FOOTER */}
-                  <div
+                  {/* <div
                     className="card-footer text-center border-0 bg-transparent pb-3"
                     style={{
                       fontWeight: "600",
@@ -179,7 +169,7 @@ function LostAndFound() {
                     }}
                   >
                     View Details →
-                  </div>
+                  </div> */}
                 </div>
               </Link>
             </div>
@@ -193,7 +183,9 @@ function LostAndFound() {
           )}
         </div>
       </div>
-    </div>
+   </div>
+         </div>
+       </motion.div>
   );
 }
 

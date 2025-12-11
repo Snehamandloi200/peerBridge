@@ -12,7 +12,7 @@ function LostAndFound() {
     description: "",
     location: "",
     contact: "",
-    creator: "",
+    
     image: null,
   });
 
@@ -72,7 +72,7 @@ function LostAndFound() {
       className="d-flex justify-content-center align-items-center"
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #fce4ec, #e3f2fd)",
+        // background: "linear-gradient(135deg, #fce4ec, #e3f2fd)",
         padding: "30px",
       }}
     >
@@ -87,13 +87,13 @@ function LostAndFound() {
           transition: "0.8s ease",
         }}
       >
-        <h3 className="text-center mb-4" style={{ color: "#d81b60" }}>
+        <h3 className="text-center mb-4 fw-bold" style={{ color: "#0e4882ff" }}>
           Lost & Found Report
         </h3>
 
         <form className="row " onSubmit={handleSubmit}>
           {/* Status */}
-          <div className="col-md-12">
+          <div className="col-md-12 mt-2">
             <label className="form-label">Status</label>
             <select
               className="form-select"
@@ -109,7 +109,7 @@ function LostAndFound() {
           </div>
 
           {/* Item Name */}
-          <div className="col-md-12">
+          <div className="col-md-12 mt-2">
             <label className="form-label">Item Name</label>
             <input
               type="text"
@@ -123,7 +123,7 @@ function LostAndFound() {
           </div>
 
           {/* Location */}
-          <div className="col-12">
+          <div className="col-12 mt-2">
             <label className="form-label">Location</label>
             <input
               type="text"
@@ -137,7 +137,7 @@ function LostAndFound() {
           </div>
 
           {/* Description */}
-          <div className="col-12">
+          <div className="col-12 mt-2">
             <label className="form-label">Description</label>
             <textarea
               className="form-control"
@@ -150,22 +150,11 @@ function LostAndFound() {
             ></textarea>
           </div>
 
-           <div className="col-12">
-            <label className="form-label fw-semibold">Owner</label>
-            <input
-              type="text"
-              className="form-control shadow-sm"
-              placeholder="Enter owner`s name"
-              name="creator"
-              value={formData.creator}
-              onChange={handleChange}
-            />
-          </div>
+           
+         
 
-           <h5 className="fw-bold text-primary mt-3">📞 Contact Details</h5>
-
-          <div className="col-md-12">
-            <label className="form-label fw-semibold text-secondary">
+          <div className="col-md-12 mt-2">
+            <label className="form-label fw-semibold ">
               Contact Number
             </label>
             <input
@@ -177,15 +166,13 @@ function LostAndFound() {
               onChange={handleChange}
               required
               pattern="[0-9]{10}"
-              style={{
-                border: "1px solid #f48fb1",
-              }}
+             
             />
           </div>
 
 
           {/* File Upload */}
-          <div className="col-12">
+          <div className="col-12 mt-2">
             <label className="form-label">Upload Photo (Optional)</label>
             <input
               type="file"
@@ -200,7 +187,11 @@ function LostAndFound() {
           <div className="col-12 mt-3">
             <button
               type="submit"
-              className="btn btn-danger w-100"
+              className="btn  w-100"
+              style={{
+                backgroundColor:"#0e4882ff",
+                color:"white"
+              }}
               disabled={isSubmitting}
             >
               {isSubmitting ? "Submitting..." : "Submit Report"}

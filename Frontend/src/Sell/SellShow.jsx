@@ -43,58 +43,65 @@ function SellShow() {
   };
 
   if (!sell) {
-    return (
-      <div className="text-center mt-5 fs-4 fw-semibold text-muted">
-        Loading details...
-      </div>
-    );
-  }
-
   return (
-    <div className="sellshow-section container-fluid py-5 d-flex justify-content-center align-items-center">
-      <div className="sellshow-card shadow-lg">
-        <img src={sell.image} alt={sell.title} className="sellshow-image" />
-
-        <div className="sellshow-body">
-          <h2 className="sellshow-title">{sell.title}</h2>
-          <p className="sellshow-description">{sell.description}</p>
-
-          <p>
-          owned by: {sell.creator}
-        
-        </p>
-
-          <p className="sellshow-contact">
-            <strong>Contact:</strong> <span>{sell.contact || "Not Available"}</span>
-          </p>
-
-          <div className="price-section">
-            <span className="price-label">Price:</span>
-            <div className="">₹ {sell.price}</div>
-          </div>
-
-          <div className="sellshow-buttons">
-            <button onClick={() => navigate("/sell")} className="sellshow-btn btn-back">
-              Back
-            </button>
-            {sell.owner === userId && (
-              <>
-                <button
-                  onClick={() => navigate(`/selledit/${id}`)}
-                  className="sellshow-btn btn-edit"
-                >
-                  Edit
-                </button>
-                <button onClick={handleDelete} className="sellshow-btn btn-delete">
-                  Delete
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-      </div>
+    <div className="text-center mt-5 fs-4 fw-semibold text-muted">
+      Loading details...
     </div>
   );
 }
+
+    return (
+  <div className="sellshow-main container py-5 d-flex justify-content-center">
+
+    <div className="sellshow-wrapper d-flex gap-4">
+
+      {/* LEFT SIDE IMAGE */}
+      <div className="sellshow-left">
+        <img src={sell.image} alt={sell.title} className="sellshow-left-img" />
+      </div>
+
+      {/* RIGHT SIDE CONTENT */}
+      <div className="sellshow-right">
+        <h2 className="sellshow-title">{sell.title}</h2>
+        <p className="sellshow-description">{sell.description}</p>
+
+        <p><strong>Owned by:</strong> {sell.owner.name}</p>
+
+        <p className="sellshow-contact">
+          <strong>Contact:</strong> {sell.contact || "Not Available"}
+        </p>
+
+        <p className="sellshow-price">
+          <strong>Price:</strong> ₹ {sell.price}
+        </p>
+
+        <div className="d-flex gap-3 mt-3">
+          <button onClick={() => navigate("/sell")} className="btn-back">
+            Back
+          </button>
+
+          {sell.owner === userId && (
+            <>
+              <button
+                onClick={() => navigate(`/selledit/${id}`)}
+                className="btn-edit"
+              >
+                Edit
+              </button>
+
+              <button onClick={handleDelete} className="btn btn-danger">
+                Delete
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+
+    </div>
+  </div>
+);
+
+}
+
 
 export default SellShow;

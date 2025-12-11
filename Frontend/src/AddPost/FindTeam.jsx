@@ -12,7 +12,7 @@ function FindTeam() {
     skills: "",
     description: "",
     linkedin: "",
-    creator: "",
+    // creator: "",
     date: "",
   });
 
@@ -69,13 +69,23 @@ function FindTeam() {
       className="d-flex justify-content-center align-items-center"
       style={{
         minHeight: "100vh",
-        background:
-          "linear-gradient(135deg, #a2c2e2, #dbeafe, #e0f7fa, #d1e7ff)",
-        backgroundSize: "400% 400%",
+        // background:
+        //   "linear-gradient(135deg, #a2c2e2, #dbeafe, #e0f7fa, #d1e7ff)",
+        // backgroundSize: "400% 400%",
         animation: "gradientBG 10s ease infinite",
         padding: "40px 0",
       }}
     >
+      <div
+    
+    style={{
+      width: "100%",
+      maxWidth: "600px",
+      padding: "25px",
+      borderRadius: "18px",
+      background: "white",
+    }}
+  >
       <style>
         {`
           @keyframes gradientBG {
@@ -102,13 +112,13 @@ function FindTeam() {
           padding: "40px",
           background: "rgba(255, 255, 255, 0.2)",
           backdropFilter: "blur(12px)",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+          // boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
         }}
       >
         <h3
-          className="text-center fw-bold mb-4"
+          className="text-center fw-bold "
           style={{
-            color: "#0d6efd",
+            color: "#0e4882ff",
             letterSpacing: "0.5px",
             fontWeight: "700",
           }}
@@ -117,7 +127,7 @@ function FindTeam() {
         </h3>
 
         <form className="row" onSubmit={handleSubmit}>
-          <div className="col-md-6">
+          <div className="col-md-12 mt-5">
             <label className="form-label fw-semibold">Hackathon Name</label>
             <input
               type="text"
@@ -130,7 +140,7 @@ function FindTeam() {
             />
           </div>
 
-          <div className="col-md-12">
+          <div className="col-md-12 mt-2">
             <label className="form-label fw-semibold">Team Name</label>
             <input
               type="text"
@@ -143,7 +153,7 @@ function FindTeam() {
             />
           </div>
 
-          <div className="col-md-12">
+          <div className="col-md-12 mt-2">
             <label className="form-label fw-semibold">Date</label>
             <input
               type="date"
@@ -155,7 +165,7 @@ function FindTeam() {
             />
           </div>
 
-          <div className="col-md-12">
+          <div className="col-md-12 mt-2">
             <label className="form-label fw-semibold">Members Needed</label>
             <input
               type="number"
@@ -168,7 +178,7 @@ function FindTeam() {
             />
           </div>
 
-          <div className="col-12">
+          <div className="col-12 mt-2">
             <label className="form-label fw-semibold">Required Skills</label>
             <input
               type="text"
@@ -180,7 +190,7 @@ function FindTeam() {
             />
           </div>
 
-           <div className="col-12">
+           {/* <div className="col-12 mt-2">
             <label className="form-label fw-semibold">Owner</label>
             <input
               type="text"
@@ -190,9 +200,9 @@ function FindTeam() {
               value={formData.creator}
               onChange={handleChange}
             />
-          </div>
+          </div> */}
 
-          <div className="col-12">
+          <div className="col-12 mt-2">
             <label className="form-label fw-semibold">LinkedIn Profile URL</label>
             <input
               type="url"
@@ -207,7 +217,7 @@ function FindTeam() {
             />
           </div>
 
-          <div className="col-12">
+          <div className="col-12 mt-2">
             <label className="form-label fw-semibold">Project Description</label>
             <textarea
               className="form-control shadow-sm"
@@ -219,7 +229,7 @@ function FindTeam() {
             ></textarea>
           </div>
 
-          <div className="col-12 mt-3">
+          <div className="col-12 mt-4">
             <button
               type="submit"
               className="btn w-100"
@@ -227,7 +237,7 @@ function FindTeam() {
               style={{
                 background: loading
                   ? "gray"
-                  : "linear-gradient(135deg, #0d6efd, #007bff)",
+                  : "#0e4882ff",
                 color: "white",
                 borderRadius: "10px",
                 padding: "12px",
@@ -238,6 +248,7 @@ function FindTeam() {
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 }

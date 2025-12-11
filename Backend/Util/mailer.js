@@ -29,7 +29,7 @@ module.exports = sendMail;
 
 if (require.main === module) {
   sendMail(
-    "renukakushwah60@gmail.com",       // send to yourself for test
+    "renukakushwah60@gmail.com",      
     "Test Email",
     "Hello from Nodemailer!",
     "<h3>Hello from Nodemailer!</h3>"

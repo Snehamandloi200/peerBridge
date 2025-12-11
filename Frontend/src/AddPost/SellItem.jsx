@@ -13,7 +13,7 @@ function SellItem() {
     location: "",
     contact: "",
      gmail: "",
-     creator: "", 
+    
     image: null,
   });
 
@@ -66,14 +66,25 @@ function SellItem() {
   };
 
   return (
-    <div className="sellitem-section d-flex justify-content-center align-items-center">
-      <div className={`sellitem-card shadow-lg ${fadeIn ? "fade-in" : ""}`}>
+    <div className="sellitem-section d-flex justify-content-center align-items-center mb-5">
+  <div
+    className={`shadow-lg ${fadeIn ? "fade-in" : ""}`}
+    style={{
+      width: "100%",
+      maxWidth: "600px",
+      padding: "25px",
+      borderRadius: "18px",
+      background: "white",
+    }}
+  >
+
+
         <h2 className="sellitem-title text-center mb-4">🛍️ Sell Your Item</h2>
 
         <form className="row " onSubmit={handleSubmit}>
           
           {/* Title */}
-          <div className="col-md-12">
+          <div className="col-md-12 mt-2">
             <label className="form-label fw-semibold">Item Title</label>
             <input
               type="text"
@@ -87,7 +98,7 @@ function SellItem() {
           </div>
 
           {/* Price */}
-          <div className="col-md-12">
+          <div className="col-md-12 mt-2">
             <label className="form-label fw-semibold">Price (₹)</label>
             <input
               type="number"
@@ -101,7 +112,7 @@ function SellItem() {
           </div>
 
           {/* Category */}
-          <div className="col-md-12">
+          <div className="col-md-12 mt-2">
             <label className="form-label fw-semibold">Category</label>
             <select
               className="form-select input-custom"
@@ -119,7 +130,7 @@ function SellItem() {
           </div>
 
           {/* Location */}
-          <div className="col-md-12">
+          <div className="col-md-12 mt-2">
             <label className="form-label fw-semibold">Pickup Location</label>
             <input
               type="text"
@@ -133,7 +144,7 @@ function SellItem() {
           </div>
 
           {/* Description */}
-          <div className="col-12">
+          <div className="col-12 mt-2">
             <label className="form-label fw-semibold">Description</label>
             <textarea
               className="form-control input-custom"
@@ -146,22 +157,12 @@ function SellItem() {
             ></textarea>
           </div>
 
-          <div className="col-12">
-            <label className="form-label fw-semibold">Owner</label>
-            <input
-              type="text"
-              className="form-control shadow-sm"
-              placeholder="Enter owner's name"
-              name="creator"
-              value={formData.creator}
-              onChange={handleChange}
-            />
-          </div>
+          
 
-          <h5 className="fw-bold text-primary mt-3">📞 Contact Details</h5>
+          
 
-          <div className="col-md-12">
-            <label className="form-label fw-semibold text-secondary">
+          <div className="col-md-12 mt-2">
+            <label className="form-label fw-semibold ">
               Contact Number
             </label>
             <input
@@ -181,8 +182,8 @@ function SellItem() {
             />
           </div>
 
-          <div className="col-md-12">
-            <label className="form-label fw-semibold text-secondary">
+          <div className="col-md-12 mt-2">
+            <label className="form-label fw-semibold ">
               Gmail ID
             </label>
             <input
@@ -203,7 +204,7 @@ function SellItem() {
 
 
           {/* Upload */}
-          <div className="col-12">
+          <div className="col-12 mt-2">
             <label className="form-label fw-semibold">Upload Photo</label>
             <input
               type="file"
