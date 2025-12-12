@@ -27,7 +27,7 @@ function Hero() {
     color: "#ffffffff",
     fontSize: "1.15rem",
     lineHeight: "1.7",
-    marginBottom: "30px",    // space below paragraph
+    marginBottom: "30px",    
   }}
 >
   <strong>PeerBridge</strong> connects college students — buy, sell, share

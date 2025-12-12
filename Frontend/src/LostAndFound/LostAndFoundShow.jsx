@@ -158,32 +158,23 @@ function LostAndFoundShow() {
               Back
             </button>
 
-            {item.owner === userId && (
-              <>
-                <button
-                  onClick={() => navigate(`/lostandfoundedit/${id}`)}
-                  className="btn px-4 fw-semibold"
-                  style={{
-                    background: "linear-gradient(135deg, #ffb74d, #f57c00)",
-                    color: "white",
-                    borderRadius: "12px",
-                  }}
-                >
-                  Edit
-                </button>
+            {item.owner?._id === userId && (
+                <>
+                  <button
+                    onClick={() => navigate(`/lostandfoundedit/${id}`)}
+                    className="btn custom-btn edit-btn"
+                  >
+                    Edit
+                  </button>
 
-                <button
-                  onClick={handleDelete}
-                  className="btn px-4 fw-semibold"
-                  style={{
-                    background: "linear-gradient(135deg, #e57373, #d32f2f)",
-                    color: "white",
-                    borderRadius: "12px",
-                  }}
-                >
-                  Delete
-                </button>
-              </>
+                  <button
+                    onClick={handleDelete}
+                    className="btn btn-danger delete-btn"
+                  >
+                    Delete
+                  </button>
+                </>
+              
             )}
           </div>
         </div>
