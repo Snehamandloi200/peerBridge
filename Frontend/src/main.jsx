@@ -23,7 +23,7 @@ import SellEdit from './Sell/SellEdit';
 
 import LostAndFoundEdit from './LostAndFound/LostFoundEdit';
 import HackathonEdit from './Hackathon/HackathonEdit';
-import Profile from './Dashboard/profile';
+import Profile from './Dashboard/Profile';
 import ProfileEdit from './Dashboard/ProfileEdit';
 
 
