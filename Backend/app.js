@@ -13,7 +13,7 @@ const bcrypt = require("bcryptjs");
 const multer = require("multer");
 const { cloudinary, storage } = require("./cloudconfig");
 const upload = multer({ storage });
-const sendEmail=require("./Util/mailer");
+const sendMail=require("./Util/mailer");
 
 
 const Sell = require("./models/sellItem");
@@ -135,12 +135,12 @@ app.post("/signup", async (req, res) => {
 
     await newUser.save();
     const token = generateToken(newUser);
-   await sendEmail(
-      email,
-      "Welcome to My App ",
-      `<h2>Hello ${name}</h2>
-       <p>Thanks for signing up!</p>`
-    );
+      sendMail(
+    email,
+    "Welcome to PeerBridge",
+    `Hello Dear, thanks for signing up!`,
+    `<h3>Hello Dear,</h3><p>Thanks for signing up for our PeerBridge</p>`
+  );
 
     res.status(201).json({
       message: "User registered successfully",
