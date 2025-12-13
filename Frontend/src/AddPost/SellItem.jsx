@@ -49,7 +49,7 @@ function SellItem() {
     Object.entries(formData).forEach(([key, value]) => form.append(key, value));
 
     try {
-      await axios.post("http://localhost:8080/addsell", form, {
+      await axios.post("https://peerbridge-au78.onrender.com/addsell", form, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -13,7 +13,7 @@ function LostAndFound() {
     const token = localStorage.getItem("token");
 
     axios
-      .get("http://localhost:8080/allLostAndFounds", {
+      .get("https://peerbridge-au78.onrender.com/allLostAndFounds", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

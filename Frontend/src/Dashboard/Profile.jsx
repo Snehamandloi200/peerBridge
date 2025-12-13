@@ -17,7 +17,7 @@ const Profile = () => {
     }
 
     axios
-      .get("http://localhost:8080/profile", {
+      .get("https://peerbridge-au78.onrender.com/profile", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setUser(res.data))

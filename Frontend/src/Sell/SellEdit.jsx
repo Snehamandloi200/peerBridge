@@ -27,7 +27,7 @@ const [formData, setFormData] = useState({
 
 useEffect(() => {
   axios
-    .get(`http://localhost:8080/sell/${id}`)
+    .get(`https://peerbridge-au78.onrender.com/sell/${id}`)
     .then((res) => setSell(res.data))
     .catch((err) => console.log(err));
 }, [id]);
@@ -80,7 +80,7 @@ if (!sell) {
   }
 
   try {
-    await axios.put(`http://localhost:8080/selledit/${id}`, data, {
+    await axios.put(`https://peerbridge-au78.onrender.com/selledit/${id}`, data, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     alert("Item updated successfully!");

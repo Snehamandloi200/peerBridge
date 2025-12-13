@@ -26,7 +26,7 @@ function Signup() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/signup",
+        "https://peerbridge-au78.onrender.com/signup",
         formData,
         { headers: { "Content-Type": "application/json" } }
       );

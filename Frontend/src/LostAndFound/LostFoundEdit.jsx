@@ -26,7 +26,7 @@ const [formData, setFormData] = useState({
 
 useEffect(() => {
   axios
-    .get(`http://localhost:8080/lostandfound/${id}`)
+    .get(`https://peerbridge-au78.onrender.com/lostandfound/${id}`)
     .then((res) => setLostAndFound(res.data))
     .catch((err) => console.log(err));
 }, [id]);
@@ -77,7 +77,7 @@ if (!lostAndFound) {
   }
 
   try {
-    await axios.put(`http://localhost:8080/lostandfoundedit/${id}`, data, {
+    await axios.put(`https://peerbridge-au78.onrender.com/lostandfoundedit/${id}`, data, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     alert("Item updated successfully!");

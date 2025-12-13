@@ -26,7 +26,7 @@ const [formData, setFormData] = useState({
 
 useEffect(() => {
   axios
-    .get(`http://localhost:8080/hackathon/${id}`)
+    .get(`https://peerbridge-au78.onrender.com/hackathon/${id}`)
     .then((res) => setHackathon(res.data))
     .catch((err) => console.log(err));
 }, [id]);
@@ -72,7 +72,7 @@ if (!hackathon) {
   
 
  try {
-  await axios.put(`http://localhost:8080/hackathonedit/${id}`, formData, {
+  await axios.put(`https://peerbridge-au78.onrender.com/hackathonedit/${id}`, formData, {
     headers: { "Content-Type": "application/json" },
   });
   alert("Hackathon updated successfully!");

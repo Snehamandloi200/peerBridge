@@ -20,7 +20,7 @@ const ProfileEdit = () => {
       try {
         const token = localStorage.getItem("token");
 
-        const res = await axios.get("http://localhost:8080/profile", {
+        const res = await axios.get("https://peerbridge-au78.onrender.com/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -48,7 +48,7 @@ const ProfileEdit = () => {
       const token = localStorage.getItem("token");
 
       const res = await axios.put(
-        "http://localhost:8080/profileedit",
+        "https://peerbridge-au78.onrender.com/profileedit",
         data,
         {
           headers: {

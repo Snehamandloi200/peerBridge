@@ -11,7 +11,7 @@ function Sell() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:8080/allSells", {
+      .get("https://peerbridge-au78.onrender.com/allSells", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setAllSells(res.data))

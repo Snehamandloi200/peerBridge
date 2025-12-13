@@ -37,7 +37,7 @@ function FindTeam() {
       const token = localStorage.getItem("token");
 
       const response = await axios.post(
-        "http://localhost:8080/addhackathon",
+        "https://peerbridge-au78.onrender.com/addhackathon",
         formData,
         {
           headers: {

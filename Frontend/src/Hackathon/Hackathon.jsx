@@ -11,7 +11,7 @@ function Hackathon() {
     const token = localStorage.getItem("token");
 
     axios
-      .get("http://localhost:8080/allhackathons", {
+      .get("https://peerbridge-au78.onrender.com/allhackathons", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

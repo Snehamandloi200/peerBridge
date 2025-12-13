@@ -10,7 +10,7 @@ function LostAndFoundShow() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/lostandfound/${id}`)
+      .get(`https://peerbridge-au78.onrender.com/lostandfound/${id}`)
       .then((res) => setItem(res.data))
       .catch((err) => console.log(err));
   }, [id]);
@@ -44,7 +44,7 @@ function LostAndFoundShow() {
       try {
         const token = localStorage.getItem("token");
 
-        await axios.delete(`http://localhost:8080/lostandfound/${id}`, {
+        await axios.delete(`https://peerbridge-au78.onrender.com/lostandfound/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

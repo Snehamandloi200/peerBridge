@@ -10,7 +10,7 @@ function HackathonShow() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/hackathon/${id}`)
+      .get(`https://peerbridge-au78.onrender.com/hackathon/${id}`)
       .then((res) => setHackathon(res.data))
       .catch((err) => console.log(err));
   }, [id]);

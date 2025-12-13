@@ -18,7 +18,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8080/login", formData);
+      const response = await axios.post("https://peerbridge-au78.onrender.com/login", formData);
 
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);

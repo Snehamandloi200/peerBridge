@@ -13,7 +13,7 @@ function SellShow() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/sell/${id}`)
+      .get(`https://peerbridge-au78.onrender.com/sell/${id}`)
       .then((res) => setSell(res.data))
       .catch((err) => console.log(err));
   }, [id]);
@@ -30,7 +30,7 @@ function SellShow() {
     if (window.confirm("Are you sure you want to delete this item?")) {
       try {
         const token = localStorage.getItem("token");
-        await axios.delete(`http://localhost:8080/sell/${id}`, {
+        await axios.delete(`https://peerbridge-au78.onrender.com/sell/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert("Item deleted successfully!");
