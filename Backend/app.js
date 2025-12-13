@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 app.use(methodOverride("_method"));
 app.use(
   cors({
-    origin: "http://localhost:5173", 
+    origin: "https://peerbridge-1-c2m4.onrender.com", 
   })
 );
 
