@@ -11,12 +11,7 @@ function Footer() {
         
         {/* ------------ COLUMN 1 (Company Info) - Placed in Grid Track 1 ------------ */}
         <div className="footer-column footer-col-info">
-          <div className="footer-logo">
-            <img 
-              src="/image/logo.jpeg" 
-              alt="PeerBridge Logo" 
-            />
-          </div>
+        
 
           <h2 className="footer-sitename peerbridge-title">
             Peer<span className="brand-highlight">Bridge</span>
