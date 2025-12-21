@@ -80,7 +80,7 @@ function SellShow() {
             Back
           </button>
 
-          {sell.owner === userId && (
+          {sell.owner?._id === userId && (
             <>
               <button
                 onClick={() => navigate(`/selledit/${id}`)}
